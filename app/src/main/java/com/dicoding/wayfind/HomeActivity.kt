@@ -1,8 +1,10 @@
 package com.dicoding.wayfind
 
+import android.content.Intent
 import android.content.res.Configuration
 import android.os.Build
 import android.os.Bundle
+import android.util.Log
 import android.view.WindowInsets
 import android.view.WindowManager
 import android.widget.CompoundButton
@@ -14,6 +16,7 @@ import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.lifecycle.ViewModelProvider
 import com.google.android.material.switchmaterial.SwitchMaterial
+import nl.joery.animatedbottombar.AnimatedBottomBar
 
 class HomeActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -45,6 +48,26 @@ class HomeActivity : AppCompatActivity() {
             }
             homeViewModel.saveThemeSetting(isDarkModeActive)
         }
+
+        val bottomBar = findViewById<AnimatedBottomBar>(R.id.bottom_bar)
+
+        bottomBar.setOnTabSelectListener(object : AnimatedBottomBar.OnTabSelectListener {
+            override fun onTabSelected(
+                lastIndex: Int,
+                lastTab: AnimatedBottomBar.Tab?,
+                newIndex: Int,
+                newTab: AnimatedBottomBar.Tab
+            ) {
+                if (newTab.id == R.id.tab_maps) {
+                    val intent = Intent(this@HomeActivity, MapsActivity::class.java)
+                    startActivity(intent)
+                }
+            }
+
+            override fun onTabReselected(index: Int, tab: AnimatedBottomBar.Tab) {
+                // Handle tab reselection if needed
+            }
+        })
     }
 
     private fun setupView() {
