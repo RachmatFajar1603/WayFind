@@ -19,7 +19,6 @@
             android:id="@+id/image_place"
             android:layout_width="350dp"
             android:layout_height="300dp"
-            app:civ_border_width="2dp"
             android:background="@drawable/image_get_started_3"/>
 
         <LinearLayout
