@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<shape xmlns:android="http://schemas.android.com/apk/res/android">
+    <stroke android:width="2dp" android:color="@color/purple"/> <!-- Change this to your desired border color -->
+    <solid android:color="@color/white"/> <!-- Change this to your desired background color -->
+    <corners android:radius="30dp"/> <!-- Change this to adjust the roundness of the corners -->
+    <padding android:left="30dp" android:top="3dp" android:right="30dp" android:bottom="3dp"/> <!-- Change this to adjust the padding -->
+</shape>
