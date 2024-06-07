@@ -1,30 +1,32 @@
-package com.dicoding.wayfind
+package com.dicoding.wayfind.view.splashscreen
 
+import android.annotation.SuppressLint
 import android.content.Intent
 import android.os.Build
 import android.os.Bundle
+import android.os.Handler
 import android.view.WindowInsets
 import android.view.WindowManager
-import android.widget.Button
-import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.view.ViewCompat
-import androidx.core.view.WindowInsetsCompat
+import com.dicoding.wayfind.R
+import com.dicoding.wayfind.view.main.MainActivity
 
-class MainActivity : AppCompatActivity() {
+@SuppressLint("CustomSplashScreen")
+class SplashScreen : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
+        setContentView(R.layout.activity_splash_screen)
 
-        setupView()
+        Handler(mainLooper).postDelayed({
+            goToMainActivity()
+        }, 3000)
+    }
 
-        val button = findViewById<Button>(R.id.button)
-        button.setOnClickListener {
-            val intent = Intent(this, HomeActivity::class.java)
-            startActivity(intent)
+    private fun goToMainActivity() {
+        Intent(this, MainActivity::class.java).also {
+            startActivity(it)
+            finish()
         }
-
-
     }
 
     private fun setupView() {
@@ -39,5 +41,4 @@ class MainActivity : AppCompatActivity() {
         }
         supportActionBar?.hide()
     }
-
 }

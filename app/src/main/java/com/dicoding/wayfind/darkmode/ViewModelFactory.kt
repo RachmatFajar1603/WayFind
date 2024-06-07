@@ -1,7 +1,8 @@
-package com.dicoding.wayfind
+package com.dicoding.wayfind.darkmode
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
+import com.dicoding.wayfind.view.home.HomeViewModel
 
 class ViewModelFactory(private val pref: SettingPreferences) : ViewModelProvider.NewInstanceFactory() {
 

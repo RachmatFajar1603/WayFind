@@ -5,7 +5,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     app:layoutDescription="@xml/activity_main_scene"
-    tools:context=".MainActivity">
+    tools:context=".view.main.MainActivity"
+    android:backgroundTint="@color/white">
 
     <ImageView
         android:id="@+id/logoMenu1"

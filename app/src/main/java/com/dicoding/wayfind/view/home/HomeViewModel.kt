@@ -1,10 +1,10 @@
-package com.dicoding.wayfind
+package com.dicoding.wayfind.view.home
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.asLiveData
 import androidx.lifecycle.viewModelScope
-import kotlinx.coroutines.flow.Flow
+import com.dicoding.wayfind.darkmode.SettingPreferences
 import kotlinx.coroutines.launch
 
 class HomeViewModel(private val pref: SettingPreferences) : ViewModel() {
