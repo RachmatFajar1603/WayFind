@@ -1,21 +1,20 @@
-package com.dicoding.wayfind
+package com.dicoding.wayfind.view.home
 
 import android.content.Intent
 import android.content.res.Configuration
 import android.os.Build
 import android.os.Bundle
-import android.util.Log
 import android.view.WindowInsets
 import android.view.WindowManager
-import android.widget.CompoundButton
 import android.widget.ImageButton
-import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.app.AppCompatDelegate
-import androidx.core.view.ViewCompat
-import androidx.core.view.WindowInsetsCompat
 import androidx.lifecycle.ViewModelProvider
-import com.google.android.material.switchmaterial.SwitchMaterial
+import com.dicoding.wayfind.view.map.MapsActivity
+import com.dicoding.wayfind.R
+import com.dicoding.wayfind.darkmode.SettingPreferences
+import com.dicoding.wayfind.darkmode.ViewModelFactory
+import com.dicoding.wayfind.darkmode.dataStore
 import nl.joery.animatedbottombar.AnimatedBottomBar
 
 class HomeActivity : AppCompatActivity() {

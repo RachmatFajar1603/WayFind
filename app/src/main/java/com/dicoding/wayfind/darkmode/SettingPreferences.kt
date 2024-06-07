@@ -1,4 +1,4 @@
-package com.dicoding.wayfind
+package com.dicoding.wayfind.darkmode
 
 import android.content.Context
 import androidx.datastore.core.DataStore
