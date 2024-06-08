@@ -41,4 +41,16 @@
     <string name="input_name">Please input your name</string>
     <string name="user_create">User created</string>
     <string name="email_taken">Email is already taken</string>
+    <string name="title_activity_google_maps">GoogleMapsActivity</string>
+    <string name="normal_type">Normal</string>
+    <string name="satellite_type">Satellite</string>
+    <string name="terrain_type">Terrain</string>
+    <string name="hybrid_type">Hybrid</string>
+    <string name="start_running">Start Running</string>
+    <string name="stop_running">Stop Running</string>
+    <string name="start_point">Start Point</string>
+    <string name="profile">Profile</string>
+    <string name="title_turn_by_turn">Add a complete turn-by-turn experience</string>
+    <string name="description_turn_by_turn">Render a complete turn-by-turn experience using all relevant Navigation SDK APIs and pre-built UI components.</string>
+
 </resources>
