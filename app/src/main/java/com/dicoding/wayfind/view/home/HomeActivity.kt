@@ -10,11 +10,14 @@ import android.widget.ImageButton
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.lifecycle.ViewModelProvider
-import com.dicoding.wayfind.view.map.MapsActivity
 import com.dicoding.wayfind.R
 import com.dicoding.wayfind.darkmode.SettingPreferences
 import com.dicoding.wayfind.darkmode.ViewModelFactory
 import com.dicoding.wayfind.darkmode.dataStore
+import com.dicoding.wayfind.view.googlemaps.GoogleMapsActivity
+import com.dicoding.wayfind.view.map.MapsActivity
+import com.dicoding.wayfind.view.map.TurnByTurnExperienceActivity
+import com.dicoding.wayfind.view.profile.ProfileActivity
 import nl.joery.animatedbottombar.AnimatedBottomBar
 
 class HomeActivity : AppCompatActivity() {
@@ -58,7 +61,10 @@ class HomeActivity : AppCompatActivity() {
                 newTab: AnimatedBottomBar.Tab
             ) {
                 if (newTab.id == R.id.tab_maps) {
-                    val intent = Intent(this@HomeActivity, MapsActivity::class.java)
+                    val intent = Intent(this@HomeActivity, TurnByTurnExperienceActivity::class.java)
+                    startActivity(intent)
+                } else if (newTab.id == R.id.tab_profile) {
+                    val intent = Intent(this@HomeActivity, ProfileActivity::class.java)
                     startActivity(intent)
                 }
             }
