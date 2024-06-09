@@ -1,6 +1,8 @@
 package com.dicoding.wayfind.view.map
 
+import android.Manifest
 import android.annotation.SuppressLint
+import android.content.pm.PackageManager
 import android.content.res.Configuration
 import android.content.res.Resources
 import android.os.Bundle
@@ -8,10 +10,15 @@ import android.view.View
 import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.ContextCompat
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import com.dicoding.wayfind.R
 import com.dicoding.wayfind.databinding.ActivityTurnByTurnExperienceBinding
+import com.google.android.gms.location.FusedLocationProviderClient
+import com.google.android.gms.location.LocationServices
+import com.google.android.gms.maps.model.CameraPosition
+import com.google.android.gms.maps.model.LatLng
 import com.mapbox.api.directions.v5.models.Bearing
 import com.mapbox.api.directions.v5.models.DirectionsRoute
 import com.mapbox.api.directions.v5.models.RouteOptions
@@ -20,6 +27,7 @@ import com.mapbox.common.location.Location
 import com.mapbox.geojson.Point
 import com.mapbox.maps.EdgeInsets
 import com.mapbox.maps.ImageHolder
+import com.mapbox.maps.Style
 import com.mapbox.maps.plugin.LocationPuck2D
 import com.mapbox.maps.plugin.animation.camera
 import com.mapbox.maps.plugin.gestures.gestures
@@ -106,7 +114,7 @@ class TurnByTurnExperienceActivity : AppCompatActivity() {
      * Produces the camera frames based on the location and routing data for the [navigationCamera] to execute.
      */
     private lateinit var viewportDataSource: MapboxNavigationViewportDataSource
-
+    private lateinit var fusedLocationClient: FusedLocationProviderClient
     /*
      * Below are generated camera padding values to ensure that the route fits well on screen while
      * other elements are overlaid on top of the map (including instruction view, buttons, etc.)
@@ -264,7 +272,7 @@ class TurnByTurnExperienceActivity : AppCompatActivity() {
         var firstLocationUpdateReceived = false
 
         override fun onNewRawLocation(rawLocation: Location) {
-            // not handled
+
         }
 
         override fun onNewLocationMatcherResult(locationMatcherResult: LocationMatcherResult) {
@@ -375,6 +383,7 @@ class TurnByTurnExperienceActivity : AppCompatActivity() {
         onResumedObserver = object : MapboxNavigationObserver {
             @SuppressLint("MissingPermission")
             override fun onAttached(mapboxNavigation: MapboxNavigation) {
+                mapboxNavigation.registerLocationObserver(locationObserver)
                 mapboxNavigation.registerRoutesObserver(routesObserver)
                 mapboxNavigation.registerLocationObserver(locationObserver)
                 mapboxNavigation.registerRouteProgressObserver(routeProgressObserver)
@@ -390,6 +399,7 @@ class TurnByTurnExperienceActivity : AppCompatActivity() {
             }
 
             override fun onDetached(mapboxNavigation: MapboxNavigation) {
+                mapboxNavigation.unregisterLocationObserver(locationObserver)
                 mapboxNavigation.unregisterRoutesObserver(routesObserver)
                 mapboxNavigation.unregisterLocationObserver(locationObserver)
                 mapboxNavigation.unregisterRouteProgressObserver(routeProgressObserver)
@@ -406,6 +416,8 @@ class TurnByTurnExperienceActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityTurnByTurnExperienceBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
+        fusedLocationClient = LocationServices.getFusedLocationProviderClient(this)
 
         // initialize Navigation Camera
         viewportDataSource = MapboxNavigationViewportDataSource(binding.mapView.mapboxMap)
@@ -488,6 +500,7 @@ class TurnByTurnExperienceActivity : AppCompatActivity() {
         routeLineApi = MapboxRouteLineApi(MapboxRouteLineApiOptions.Builder().build())
         routeLineView = MapboxRouteLineView(mapboxRouteLineViewOptions)
 
+
         // initialize maneuver arrow view to draw arrows on the map
         val routeArrowOptions = RouteArrowOptions.Builder(this).build()
         routeArrowView = MapboxRouteArrowView(routeArrowOptions)
@@ -556,23 +569,36 @@ class TurnByTurnExperienceActivity : AppCompatActivity() {
     }
 
     @OptIn(ExperimentalPreviewMapboxNavigationAPI::class)
+    @SuppressLint("MissingPermission")
     private fun replayOriginLocation() {
-        with(mapboxNavigation.mapboxReplayer) {
-            play()
-            pushEvents(
-                listOf(
-                    ReplayRouteMapper.mapToUpdateLocation(
-                        Date().time.toDouble(),
-                        Point.fromLngLat(-122.39726512303575, 37.785128345296805)
-                    )
-                )
-            )
-            playFirstLocation()
-        }
+        fusedLocationClient.lastLocation
+            .addOnSuccessListener { location: android.location.Location? ->
+                if (location != null) {
+                    val originPoint = Point.fromLngLat(location.longitude, location.latitude)
+                    with(mapboxNavigation.mapboxReplayer) {
+                        play()
+                        pushEvents(
+                            listOf(
+                                ReplayRouteMapper.mapToUpdateLocation(
+                                    Date().time.toDouble(),
+                                    originPoint
+                                )
+                            )
+                        )
+                        playFirstLocation()
+                    }
+                } else {
+                    Toast.makeText(this, "Current location not available", Toast.LENGTH_SHORT).show()
+                }
+            }
     }
 
     private fun findRoute(destination: Point) {
-        val originLocation = navigationLocationProvider.lastLocation ?: return
+        val originLocation = navigationLocationProvider.lastLocation
+        if (originLocation == null) {
+            Toast.makeText(this, "Current location not available", Toast.LENGTH_SHORT).show()
+            return
+        }
         val originPoint = Point.fromLngLat(originLocation.longitude, originLocation.latitude)
 
         // execute a route request
