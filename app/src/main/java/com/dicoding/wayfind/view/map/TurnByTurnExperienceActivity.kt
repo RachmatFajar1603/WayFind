@@ -258,7 +258,7 @@ class TurnByTurnExperienceActivity : AppCompatActivity() {
      * the system services required for on-device speech synthesis. With lazy initialization
      * there is a high risk that said services will not be available when the first instruction
      * has to be played. [MapboxVoiceInstructionsPlayer] should be instantiated in
-     * `Activity#onCreate`.
+     * Activity#onCreate.
      */
     private lateinit var voiceInstructionsPlayer: MapboxVoiceInstructionsPlayer
 
@@ -434,14 +434,14 @@ class TurnByTurnExperienceActivity : AppCompatActivity() {
                 mapboxNavigation.registerLocationObserver(locationObserver)
                 mapboxNavigation.registerRouteProgressObserver(routeProgressObserver)
 
-                replayProgressObserver = ReplayProgressObserver(mapboxNavigation.mapboxReplayer)
-                mapboxNavigation.registerRouteProgressObserver(replayProgressObserver)
+                // Replayer
+//                replayProgressObserver = ReplayProgressObserver(mapboxNavigation.mapboxReplayer)
+//                mapboxNavigation.registerRouteProgressObserver(replayProgressObserver)
+//                mapboxNavigation.startReplayTripSession()
 
-                // Start the trip session to being receiving location updates in free drive
-                // and later when a route is set also receiving route progress updates.
-                // In case of `startReplayTripSession`,
-                // location events are emitted by the `MapboxReplayer`
-                mapboxNavigation.startReplayTripSession()
+                // Start Trip Session
+                mapboxNavigation.startTripSession()
+
             }
 
             override fun onDetached(mapboxNavigation: MapboxNavigation) {
@@ -451,7 +451,12 @@ class TurnByTurnExperienceActivity : AppCompatActivity() {
                 mapboxNavigation.unregisterRouteProgressObserver(routeProgressObserver)
                 mapboxNavigation.unregisterRouteProgressObserver(replayProgressObserver)
                 mapboxNavigation.unregisterVoiceInstructionsObserver(voiceInstructionsObserver)
-                mapboxNavigation.mapboxReplayer.finish()
+
+                // Replayer
+//                mapboxNavigation.mapboxReplayer.finish()
+
+                // Stop Trip Session
+                mapboxNavigation.stopTripSession()
             }
         },
         onInitialize = this::initNavigation
@@ -640,7 +645,9 @@ class TurnByTurnExperienceActivity : AppCompatActivity() {
             isVisible = false
         }
 
+
         val searchEngineSettings = SearchEngineSettings()
+
         locationProvider = searchEngineSettings.locationProvider ?: throw IllegalStateException("No location provider found")
 
         val searchEngine = SearchEngine.createSearchEngineWithBuiltInDataProviders(
@@ -695,7 +702,8 @@ class TurnByTurnExperienceActivity : AppCompatActivity() {
             }
 
             override fun onError(e: Exception) {
-                Toast.makeText(applicationContext, "Error happened: $e", Toast.LENGTH_SHORT).show()
+                Log.e("SearchApiExample", "Error happened: ${e.message}", e)
+                Toast.makeText(this@TurnByTurnExperienceActivity, "Search error: ${e.message}", Toast.LENGTH_SHORT).show()
             }
 
             override fun onHistoryItemClick(historyRecord: HistoryRecord) {
@@ -731,7 +739,8 @@ class TurnByTurnExperienceActivity : AppCompatActivity() {
         }
 
         searchPlaceView.addOnNavigateClickListener { searchPlace ->
-            startActivity(geoIntent(searchPlace.coordinate))
+            findRoute(searchPlace.coordinate)
+            searchPlaceView.hide()
         }
 
         searchPlaceView.addOnShareClickListener { searchPlace ->
