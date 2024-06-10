@@ -52,5 +52,8 @@
     <string name="profile">Profile</string>
     <string name="title_turn_by_turn">Add a complete turn-by-turn experience</string>
     <string name="description_turn_by_turn">Render a complete turn-by-turn experience using all relevant Navigation SDK APIs and pre-built UI components.</string>
-
+    <string name="place_autocomplete_query_hint">Search for places</string>
+    <string name="action_place_autocomplete_kotlin_example">Place Autocomplete</string>
+    <string name="toolbar_title">Search demo</string>
+    <string name="query_hint">Where to?</string>
 </resources>
