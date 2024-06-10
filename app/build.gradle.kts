@@ -78,6 +78,14 @@ dependencies {
     implementation ("com.mapbox.navigationcore:ui-components:3.1.0")
     implementation ("com.mapbox.navigationcore:navigation:3.0.2")
     implementation ("com.mapbox.navigationcore:ui-components:3.0.2")
+    implementation ("com.mapbox.search:autofill:2.1.0")
+    implementation ("com.mapbox.search:discover:2.1.0")
+    implementation ("com.mapbox.search:place-autocomplete:2.1.0")
+    implementation ("com.mapbox.search:offline:2.1.0")
+    implementation ("com.mapbox.search:mapbox-search-android:2.1.0")
+    implementation ("com.mapbox.search:mapbox-search-android-ui:2.1.0")
+    implementation ("com.mapbox.search:mapbox-search-android-ui:2.2.0-rc.1")
+
 
     // Retrofit
     implementation("com.squareup.retrofit2:retrofit:2.9.0")
