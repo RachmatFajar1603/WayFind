@@ -1,5 +1,6 @@
-package com.dicoding.wayfind.view.profile
+package com.dicoding.wayfind.view.favorite
 
+import android.annotation.SuppressLint
 import android.content.Intent
 import android.os.Build
 import android.os.Bundle
@@ -11,19 +12,20 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import com.dicoding.wayfind.R
-import com.dicoding.wayfind.view.favorite.FavoriteActivity
 import com.dicoding.wayfind.view.home.HomeActivity
 import com.dicoding.wayfind.view.map.TurnByTurnExperienceActivity
+import com.dicoding.wayfind.view.profile.ProfileActivity
 import nl.joery.animatedbottombar.AnimatedBottomBar
 
-class ProfileActivity : AppCompatActivity() {
+class FavoriteActivity : AppCompatActivity() {
+    @SuppressLint("MissingInflatedId")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_profile)
+        setContentView(R.layout.activity_favorite)
 
         setupView()
 
-        val backButton = findViewById<ImageButton>(R.id.back_button_profile)
+        val backButton = findViewById<ImageButton>(R.id.back_button_favorite)
         backButton.setOnClickListener {
             val intent = Intent(this, HomeActivity::class.java)
             startActivity(intent)
@@ -41,19 +43,19 @@ class ProfileActivity : AppCompatActivity() {
                 newTab: AnimatedBottomBar.Tab
             ) {
                 if (newTab.id == R.id.tab_maps) {
-                    val intent = Intent(this@ProfileActivity, TurnByTurnExperienceActivity::class.java)
+                    val intent = Intent(this@FavoriteActivity, TurnByTurnExperienceActivity::class.java)
                     startActivity(intent)
                     overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left)
                 } else if (newTab.id == R.id.tab_profile) {
-                    val intent = Intent(this@ProfileActivity, ProfileActivity::class.java)
+                    val intent = Intent(this@FavoriteActivity, ProfileActivity::class.java)
                     startActivity(intent)
                     overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left)
                 } else if (newTab.id == R.id.tab_home) {
-                    val intent = Intent(this@ProfileActivity, HomeActivity::class.java)
+                    val intent = Intent(this@FavoriteActivity, HomeActivity::class.java)
                     startActivity(intent)
                     overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left)
                 } else if (newTab.id == R.id.tab_favorite) {
-                    val intent = Intent(this@ProfileActivity, FavoriteActivity::class.java)
+                    val intent = Intent(this@FavoriteActivity, FavoriteActivity::class.java)
                     startActivity(intent)
                     overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left)
                 }

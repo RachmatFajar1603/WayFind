@@ -14,6 +14,7 @@ import com.dicoding.wayfind.R
 import com.dicoding.wayfind.darkmode.SettingPreferences
 import com.dicoding.wayfind.darkmode.ViewModelFactory
 import com.dicoding.wayfind.darkmode.dataStore
+import com.dicoding.wayfind.view.favorite.FavoriteActivity
 import com.dicoding.wayfind.view.googlemaps.GoogleMapsActivity
 import com.dicoding.wayfind.view.map.MapsActivity
 import com.dicoding.wayfind.view.map.TurnByTurnExperienceActivity
@@ -63,9 +64,19 @@ class HomeActivity : AppCompatActivity() {
                 if (newTab.id == R.id.tab_maps) {
                     val intent = Intent(this@HomeActivity, TurnByTurnExperienceActivity::class.java)
                     startActivity(intent)
+                    overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left)
                 } else if (newTab.id == R.id.tab_profile) {
                     val intent = Intent(this@HomeActivity, ProfileActivity::class.java)
                     startActivity(intent)
+                    overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left)
+                } else if (newTab.id == R.id.tab_home) {
+                    val intent = Intent(this@HomeActivity, HomeActivity::class.java)
+                    startActivity(intent)
+                    overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left)
+                } else if (newTab.id == R.id.tab_favorite) {
+                    val intent = Intent(this@HomeActivity, FavoriteActivity::class.java)
+                    startActivity(intent)
+                    overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left)
                 }
             }
 
