@@ -18,14 +18,12 @@
         <ImageView
             android:id="@+id/image_place"
             android:layout_width="350dp"
-            android:layout_height="300dp"
-            android:background="@drawable/image_get_started_3"/>
+            android:layout_height="300dp" />
 
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            >
+            android:orientation="horizontal">
 
             <TextView
                 android:id="@+id/name_place"
@@ -141,7 +139,7 @@
             android:layout_height="wrap_content"
             android:orientation="horizontal"
             android:layout_marginTop="10dp"
-            android:layout_marginStart="15dp">
+            android:layout_marginStart="125dp">
 
             <Button
                 android:layout_width="wrap_content"
@@ -151,13 +149,6 @@
                 android:textColor="@color/white"
                 android:fontFamily="@font/poppins_semi_bold"/>
 
-            <Button
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Share"
-                android:backgroundTint="@color/purple"
-                android:layout_marginStart="15dp"
-                android:fontFamily="@font/poppins_semi_bold"/>
         </LinearLayout>
 
 
