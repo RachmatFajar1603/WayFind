@@ -1,59 +1,195 @@
 <resources>
-<string name="app_name">WayFind</string>
-<string name="title_menu_1">Navigate your surroundings with effortless confidance</string>
-<string name="title_menu_2">Belajar Fleksibel Sesuai Jadwal Anda</string>
-<string name="title_menu_3">Code Review dari Developer Expert</string>
-<string name="title_menu_4">Alumni Terpercaya di Berbagai Perusahaan</string>
-<string name="desc_menu_1">Explore new destinations, effortlessly find your path, and never lose your way!</string>
-<string name="desc_menu_2">Belajar kapan pun, di mana pun, secara mandiri. Bebas memilih kelas sesuai minat belajar. Akses seumur hidup ke kelas dan forum diskusi setelah lulus.</string>
-<string name="desc_menu_3">Validasi skill Anda melalui 1-on-1 Professional Code Review yang diberikan langsung oleh Developer Expert.</string>
-<string name="desc_menu_4">Sertifikat yang membuktikan pengetahuan fundamental beserta keterampilan nyata yang diinginkan perusahaan global.</string>
-<string name="get_started">Get Started</string>
-<string name="home">Home</string>
-<string name="maps">Maps</string>
-<string name="favorite">Favorite</string>
-<string name="all">All</string>
-<string name="top_rated">Top Rated</string>
-<string name="open_now">Open Now</string>
-<string name="places">Places</string>
-<string name="ERROR_EMAIL_EMPTY">Email cannot be empty</string>
-<string name="ERROR_EMAIL_INVALID_FORMAT">The email format entered is invalid</string>
-<string name="ERROR_EMAIL_ALREADY_REGISTERED">This email is already registered</string>
-<string name="ERROR_NAME_EMPTY">Name cannot be empty</string>
-<string name="ERROR_NAME_TOOLONG">Name cannot exceed 25 characters</string>
-<string name="ERROR_PASSWORD_EMPTY">Password cannot be empty</string>
-<string name="ERROR_PASSWORD_LENGTH">Password must be at least 8 characters long</string>
-<string name="ERROR_PASSWORD_MISMATCH">Password and confirm password do not match</string>
-<string name="hi_please_login">Hi, Please Login!</string>
-<string name="email">Email</string>
-<string name="HINT_EMAIL">Enter Your Email</string>
-<string name="password">Password</string>
-<string name="HINT_PASSWORD">Enter Your Password</string>
-<string name="LOGIN_TEXT">Login</string>
-<string name="signup_account">SignUp Account</string>
-<string name="signup">SignUp</string>
-<string name="register">Register</string>
-<string name="full_name">Full Name</string>
-<string name="HINT_FULL_NAME">Enter Full Name</string>
-<string name="unauthorized">Please check email or password correctly</string>
-<string name="timeout">Timeout!! please try again later</string>
-<string name="error_message">"Error message :  "</string>
-<string name="input_name">Please input your name</string>
-<string name="user_create">User created</string>
-<string name="email_taken">Email is already taken</string>
-<string name="title_activity_google_maps">GoogleMapsActivity</string>
-<string name="normal_type">Normal</string>
-<string name="satellite_type">Satellite</string>
-<string name="terrain_type">Terrain</string>
-<string name="hybrid_type">Hybrid</string>
-<string name="start_running">Start Running</string>
-<string name="stop_running">Stop Running</string>
-<string name="start_point">Start Point</string>
-<string name="profile">Profile</string>
-<string name="title_turn_by_turn">Add a complete turn-by-turn experience</string>
-<string name="description_turn_by_turn">Render a complete turn-by-turn experience using all relevant Navigation SDK APIs and pre-built UI components.</string>
-<string name="place_autocomplete_query_hint">Search for places</string>
-<string name="action_place_autocomplete_kotlin_example">Place Autocomplete</string>
-<string name="toolbar_title">Search demo</string>
-<string name="query_hint">Where to?</string>
+    <string name="app_name">WayFind</string>
+    <string name="title_menu_1">Navigate your surroundings with effortless confidance</string>
+    <string name="title_menu_2">Belajar Fleksibel Sesuai Jadwal Anda</string>
+    <string name="title_menu_3">Code Review dari Developer Expert</string>
+    <string name="title_menu_4">Alumni Terpercaya di Berbagai Perusahaan</string>
+    <string name="desc_menu_1">Explore new destinations, effortlessly find your path, and never lose your way!</string>
+    <string name="desc_menu_2">Belajar kapan pun, di mana pun, secara mandiri. Bebas memilih kelas sesuai minat belajar. Akses seumur hidup ke kelas dan forum diskusi setelah lulus.</string>
+    <string name="desc_menu_3">Validasi skill Anda melalui 1-on-1 Professional Code Review yang diberikan langsung oleh Developer Expert.</string>
+    <string name="desc_menu_4">Sertifikat yang membuktikan pengetahuan fundamental beserta keterampilan nyata yang diinginkan perusahaan global.</string>
+    <string name="get_started">Get Started</string>
+    <string name="home">Home</string>
+    <string name="maps">Maps</string>
+    <string name="favorite">Favorite</string>
+    <string name="all">All</string>
+    <string name="top_rated">Top Rated</string>
+    <string name="open_now">Open Now</string>
+    <string name="places">Places</string>
+    <string name="ERROR_EMAIL_EMPTY">Email cannot be empty</string>
+    <string name="ERROR_EMAIL_INVALID_FORMAT">The email format entered is invalid</string>
+    <string name="ERROR_EMAIL_ALREADY_REGISTERED">This email is already registered</string>
+    <string name="ERROR_NAME_EMPTY">Name cannot be empty</string>
+    <string name="ERROR_NAME_TOOLONG">Name cannot exceed 25 characters</string>
+    <string name="ERROR_PASSWORD_EMPTY">Password cannot be empty</string>
+    <string name="ERROR_PASSWORD_LENGTH">Password must be at least 8 characters long</string>
+    <string name="ERROR_PASSWORD_MISMATCH">Password and confirm password do not match</string>
+    <string name="hi_please_login">Hi, Please Login!</string>
+    <string name="email">Email</string>
+    <string name="HINT_EMAIL">Enter Your Email</string>
+    <string name="password">Password</string>
+    <string name="HINT_PASSWORD">Enter Your Password</string>
+    <string name="LOGIN_TEXT">Login</string>
+    <string name="signup_account">SignUp Account</string>
+    <string name="signup">SignUp</string>
+    <string name="register">Register</string>
+    <string name="full_name">Full Name</string>
+    <string name="HINT_FULL_NAME">Enter Full Name</string>
+    <string name="unauthorized">Please check email or password correctly</string>
+    <string name="timeout">Timeout!! please try again later</string>
+    <string name="error_message">"Error message :  "</string>
+    <string name="input_name">Please input your name</string>
+    <string name="user_create">User created</string>
+    <string name="email_taken">Email is already taken</string>
+    <string name="title_activity_google_maps">GoogleMapsActivity</string>
+    <string name="normal_type">Normal</string>
+    <string name="satellite_type">Satellite</string>
+    <string name="terrain_type">Terrain</string>
+    <string name="hybrid_type">Hybrid</string>
+    <string name="start_running">Start Running</string>
+    <string name="stop_running">Stop Running</string>
+    <string name="start_point">Start Point</string>
+    <string name="title_turn_by_turn">Add a complete turn-by-turn experience</string>
+    <string name="description_turn_by_turn">Render a complete turn-by-turn experience using all relevant Navigation SDK APIs and pre-built UI components.</string>
+    <string name="place_autocomplete_query_hint">Search for places</string>
+    <string name="action_place_autocomplete_kotlin_example">Place Autocomplete</string>
+    <string name="toolbar_title">Search demo</string>
+    <string name="query_hint">Where to?</string>
+    <string name="profile">Profile</string>
+    <string name="your_name">Agus Akbar</string>
+    <string name="email_value">agusakbar@gmail.com</string>
+    <string name="gender_value">Male</string>
+    <string name="gender">Gender</string>
+    <string name="date_of_birth">Date of Birth</string>
+    <string name="date_of_birth_value">12-12-1990</string>
+
+    <string-array name="data_photo">
+        <item>https://upload.wikimedia.org/wikipedia/id/thumb/b/b1/Merdeka_Square_Monas_02.jpg/800px-Merdeka_Square_Monas_02.jpg</item>
+        <item>https://upload.wikimedia.org/wikipedia/commons/thumb/d/d6/TMII_Istana_Anak-anak_Indonesia.JPG/1200px-TMII_Istana_Anak-anak_Indonesia.JPG</item>
+        <item>https://upload.wikimedia.org/wikipedia/commons/thumb/9/92/Festival_beach_Ancol_Jakarta.jpg/1200px-Festival_beach_Ancol_Jakarta.jpg</item>
+        <item>https://upload.wikimedia.org/wikipedia/commons/e/ee/Fatahillah.jpg</item>
+        <item>https://upload.wikimedia.org/wikipedia/commons/7/78/Ragunan_Zoo_Gate.jpg</item>
+        <item>https://upload.wikimedia.org/wikipedia/commons/0/02/Dunia_Fantasi_Ancol.JPG</item>
+        <item>https://upload.wikimedia.org/wikipedia/commons/4/45/Museum_Nasional_Indonesia.jpg</item>
+        <item>https://upload.wikimedia.org/wikipedia/commons/d/da/Taman_Suropati_%281%29.jpg</item>
+        <item>https://upload.wikimedia.org/wikipedia/commons/d/d3/Plaza_Taman_Ismail_Marzuki.jpg</item>
+        <item>https://cdn-2.tstatic.net/tribunnewswiki/foto/bank/images/2-Museum-MACAN.jpg</item>
+        <item>https://upload.wikimedia.org/wikipedia/commons/9/9f/Berlin_Zeiss_Planetarium.JPG</item>
+        <item>https://upload.wikimedia.org/wikipedia/commons/thumb/f/f2/East_side_of_Pari_Island%2C_Kepulauan_Seribu_National_Park.jpg/800px-East_side_of_Pari_Island%2C_Kepulauan_Seribu_National_Park.jpg</item>
+        <item>https://upload.wikimedia.org/wikipedia/commons/thumb/8/8f/Jakarta_aquarium.jpg/1200px-Jakarta_aquarium.jpg</item>
+        <item>https://upload.wikimedia.org/wikipedia/commons/thumb/c/cd/Taman_Menteng.jpg/640px-Taman_Menteng.jpg</item>
+        <item>https://upload.wikimedia.org/wikipedia/commons/2/25/Setu_Babakan.jpg</item>
+        <item>https://storage.jakarta-tourism.go.id/public/articles/35e32c73-a369-4bf9-9a6b-50e3766ae990.png</item>
+        <item>https://upload.wikimedia.org/wikipedia/commons/e/e3/Museum_Bank_Indonesia_tampak_depan.jpg</item>
+        <item>https://asset.kompas.com/crops/vPGWWgVMN9c5UWn_vKiShuILFF0=/0x0:1000x667/750x500/data/photo/2022/09/14/63212b32e0b43.jpg</item>
+        <item>https://www.jakartamangrove.id/assets/images/img-2988-copy-2000x1333.jpg</item>
+    </string-array>
+
+    <string-array name="data_name">
+        <item>Monumen Nasional (Monas)</item>
+        <item>Taman Mini Indonesia Indah (TMII)</item>
+        <item>Ancol Taman Impian</item>
+        <item>Kota Tua Jakarta</item>
+        <item>Kebun Binatang Ragunan</item>
+        <item>Dunia Fantasi (Dufan)</item>
+        <item>Museum Nasional Indonesia</item>
+        <item>Taman Suropati</item>
+        <item>Taman Ismail Marzuki</item>
+        <item>Museum MACAN</item>
+        <item>Planetarium Jakarta</item>
+        <item>Pulau Seribu</item>
+        <item>Jakarta Aquarium</item>
+        <item>Taman Menteng</item>
+        <item>Setu Babakan</item>
+        <item>Hutan Kota Gelora Bung Karno</item>
+        <item>Museum Bank Indonesia</item>
+        <item>Pantai Indah Kapuk (PIK)</item>
+        <item>Taman Wisata Alam Mangrove Angke Kapuk</item>
+    </string-array>
+
+    <string-array name="data_rating">
+        <item>4.6</item>
+        <item>4.6</item>
+        <item>4.6</item>
+        <item>4.6</item>
+        <item>4.5</item>
+        <item>4.6</item>
+        <item>4.6</item>
+        <item>4.6</item>
+        <item>4.8</item>
+        <item>4.5</item>
+        <item>4.5</item>
+        <item>4.7</item>
+        <item>4.6</item>
+        <item>4.5</item>
+        <item>4.4</item>
+        <item>4.7</item>
+        <item>4.7</item>
+        <item>4.6</item>
+        <item>4.3</item>
+    </string-array>
+
+    <string-array name="data_time">
+        <item>08.00 - 22.00 WIB</item>
+        <item>05.00 - 22.00 WIB</item>
+        <item>08.00 - 20.00 WIB</item>
+        <item>08.00 - 21.00 WIB</item>
+        <item>07.00 - 16.00 WIB</item>
+        <item>10.00 - 18.00 WIB</item>
+        <item>8.30 - 16.00 WIB</item>
+        <item>6.30 - 17.00 WIB</item>
+        <item>9.00 - 20.00 WIB</item>
+        <item>10.00 - 18.00 WIB</item>
+        <item>10.00 - 18.00 WIB</item>
+        <item>10.00 - 18.00 WIB</item>
+        <item>10.00 - 21.00 WIB</item>
+        <item>5.00 - 22.00 WIB</item>
+        <item>9.00 - 15.00 WIB</item>
+        <item>6.00 - 22.00 WIB</item>
+        <item>8.00 - 15.00 WIB</item>
+        <item>24 Jam</item>
+        <item>7.00 - 18.00 WIB</item>
+    </string-array>
+
+    <string-array name="data_location">
+        <item>Merdeka Square, Jakarta, RW.2, Gambir, Central Jakarta City, Jakarta 10110</item>
+        <item>Jl. Taman Mini Indonesia Indah, Ceger, Kec. Cipayung, Kota Jakarta Timur, Daerah Khusus Ibukota Jakarta 13820</item>
+        <item>Jl. Lodan Timur No.7, Ancol, Kec. Pademangan, Jkt Utara, Daerah Khusus Ibukota Jakarta 14430</item>
+        <item>Kecamatan Taman Sari, Jakarta Barat.</item>
+        <item>Jl. Harsono RM No.1, Ragunan, Ps. Minggu, Kota Jakarta Selatan, Daerah Khusus Ibukota Jakarta 12550</item>
+        <item>Jl. Lodan Timur No.7, Ancol, Kec. Pademangan, Jkt Utara, Daerah Khusus Ibukota Jakarta 14430</item>
+        <item>Jl. Medan Merdeka Barat No.12, Gambir, Kecamatan Gambir, Kota Jakarta Pusat, Daerah Khusus Ibukota Jakarta 10110</item>
+        <item>Jl. Taman Suropati No.5, RT.5/RW.5, Menteng, Kec. Menteng, Kota Jakarta Pusat, Daerah Khusus Ibukota Jakarta 10310</item>
+        <item>Jl. Cikini Raya No.73, RT.8/RW.2, Cikini, Kec. Menteng, Kota Jakarta Pusat, Daerah Khusus Ibukota Jakarta 10330</item>
+        <item>AKR Tower Level M, Jl. Panjang No.5, Kb. Jeruk, Kec. Kb. Jeruk, Kota Jakarta Barat, Daerah Khusus Ibukota Jakarta 11530</item>
+        <item>Jl. Cikini Raya No.73, Cikini, Kec. Menteng, Kota Jakarta Pusat, Daerah Khusus Ibukota Jakarta 10330</item>
+        <item>Pulau Seribu</item>
+        <item>Letjen S. Parman St No.106, RT.3/RW.3, South Tanjung Duren, Grogol petamburan, West Jakarta City, Jakarta 11470</item>
+        <item>Jl. HOS. Cokroaminoto, RT.3/RW.5, Menteng, Kec. Menteng, Kota Jakarta Pusat, Daerah Khusus Ibukota Jakarta 10310</item>
+        <item>area Perkampungan Budaya Betawi, Jalan Situ Babakan Nomor 47, RT 13/ RW 8, Srengseng Sawah, Kecamatan Jagakarsa, Jakarta Selatan.</item>
+        <item>Jl. Jenderal Sudirman, RT.1/RW.3, Gelora, Kecamatan Tanah Abang, Kota Jakarta Pusat, Daerah Khusus Ibukota Jakarta 10270</item>
+        <item>Perumahan PIK 2 , Cluster Scarlet 2, Kec. Penjaringan</item>
+        <item>Jl. Garden House, Kamal Muara, Kec. Penjaringan, Jkt Utara, Daerah Khusus Ibukota Jakarta 14470</item>
+    </string-array>
+
+    <string-array name="data_price">
+        <item>Rp 3.000 - 8.000</item>
+        <item>Rp 35.000</item>
+        <item>Rp 30.000</item>
+        <item>RP 15.000</item>
+        <item>Rp 5.000</item>
+        <item>Rp 210.000</item>
+        <item>Rp 15.000</item>
+        <item>Rp 20.000</item>
+        <item>Free</item>
+        <item>Rp 60.000</item>
+        <item>Rp 5.000</item>
+        <item>-</item>
+        <item>Rp 111.550 - 161.000</item>
+        <item>Free</item>
+        <item>Free</item>
+        <item>Free</item>
+        <item>Free</item>
+        <item>Rp 28.500 - Rp 33.550</item>
+    </string-array>
 </resources>

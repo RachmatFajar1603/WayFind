@@ -99,4 +99,9 @@ dependencies {
 //    implementation ("com.google.maps.android:maps-ktx:5.0.0")
 //    implementation("com.google.android.gms:play-services-location:18.2.0")
 
+    //Circle Image View
+    implementation ("de.hdodenhof:circleimageview:3.1.0")
+
+    //Glide
+    implementation ("com.github.bumptech.glide:glide:4.16.0")
 }

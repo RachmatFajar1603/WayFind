@@ -27,62 +27,17 @@
         android:layout_width="50dp"
         android:layout_height="50dp"
         android:layout_marginStart="325dp"
-        android:layout_marginTop="25dp"
+        android:layout_marginTop="30dp"
         android:background="@drawable/dark_mode_off"
         android:gravity="center"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/tv_all"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="90dp"
-        android:fontFamily="@font/poppins_semi_bold"
-        android:text="@string/all"
-        android:textSize="16sp"
-        android:textColor="@color/white"
-        android:layout_marginEnd="280dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        android:background="@drawable/background_textview"/>
-
-    <TextView
-        android:id="@+id/tv_top_rated"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="90dp"
-        android:fontFamily="@font/poppins_semi_bold"
-        android:text="@string/top_rated"
-        android:textColor="@color/black"
-        android:textSize="16sp"
-        android:layout_marginEnd="44dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        android:background="@drawable/background_textview_2"/>
-
-    <TextView
-        android:id="@+id/tv_open_now"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="90dp"
-        android:fontFamily="@font/poppins_semi_bold"
-        android:text="@string/open_now"
-        android:textColor="@color/black"
-        android:textSize="16sp"
-        android:layout_marginStart="250dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        android:background="@drawable/background_textview_2"/>
-
-    <TextView
         android:id="@+id/tv_places"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="140dp"
+        android:layout_marginTop="100dp"
         android:fontFamily="@font/poppins_semi_bold"
         android:layout_marginEnd="260dp"
         android:text="@string/places"
@@ -92,22 +47,36 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rv_places"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginTop="160dp"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+        app:layout_constraintBottom_toTopOf="@+id/bottom_bar"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tv_places"
+        tools:listitem="@layout/item_places" />
+
     <nl.joery.animatedbottombar.AnimatedBottomBar
         android:id="@+id/bottom_bar"
         android:layout_width="match_parent"
         android:layout_height="54dp"
-        android:layout_marginTop="667dp"
+        android:layout_marginBottom="44dp"
+        app:abb_indicatorAnimation="slide"
         app:abb_indicatorAppearance="round"
         app:abb_indicatorHeight="4dp"
         app:abb_indicatorMargin="16dp"
         app:abb_selectedIndex="1"
         app:abb_selectedTabType="text"
+        app:abb_tabAnimationSelected="slide"
         app:abb_tabs="@menu/tabs"
+        app:abb_textAppearance="@style/CustomText"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:abb_textAppearance="@style/CustomText"
-        app:abb_tabAnimationSelected="slide"
-        app:abb_indicatorAnimation="slide"/>
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
