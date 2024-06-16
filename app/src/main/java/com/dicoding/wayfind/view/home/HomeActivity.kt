@@ -107,13 +107,14 @@ class HomeActivity : AppCompatActivity() {
         val dataTime = resources.getStringArray(R.array.data_time)
         val dataLocation = resources.getStringArray(R.array.data_location)
         val dataPrice = resources.getStringArray(R.array.data_price)
+        val dataCoordinate = resources.getStringArray(R.array.data_coordinate)
 
         // Ensure all arrays have the same length
-        val minLength = minOf(dataPhoto.size,dataName.size, dataRating.size, dataTime.size, dataLocation.size, dataPrice.size)
+        val minLength = minOf(dataPhoto.size,dataName.size, dataRating.size, dataTime.size, dataLocation.size, dataPrice.size, dataCoordinate.size)
 
         val listPlaces = ArrayList<Places>()
         for (i in 0 until minLength) {
-            val places = Places(dataPhoto[i],dataName[i], dataRating[i], dataTime[i], dataLocation[i], dataPrice[i])
+            val places = Places(dataPhoto[i],dataName[i], dataRating[i], dataTime[i], dataLocation[i], dataPrice[i], dataCoordinate[i])
             listPlaces.add(places)
         }
         return listPlaces

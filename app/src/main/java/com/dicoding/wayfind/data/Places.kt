@@ -10,5 +10,6 @@ data class Places(
     val rating: String,
     val time: String,
     val location: String,
-    val price: String
+    val price: String,
+    val coordinate: String
 ) : Parcelable

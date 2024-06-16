@@ -799,7 +799,6 @@ class TurnByTurnExperienceActivity : AppCompatActivity() {
                 // Handle tab reselection if needed
             }
         })
-
     }
 
 
@@ -954,7 +953,43 @@ class TurnByTurnExperienceActivity : AppCompatActivity() {
                         playFirstLocation()
                     }
                 } else {
-                    Toast.makeText(this, "Current location not available", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(this, "Current location not available", Toast.LENGTH_SHORT)
+                        .show()
+                }
+                // check if any extra string intent
+                if (intent.hasExtra("coordinate")) {
+                    val destination = intent.getStringExtra("coordinate")
+                    val destinationPoint = Point.fromLngLat(destination!!.split(",")[0].toDouble(), destination.split(",")[1].toDouble())
+                    val originLocation = location
+                    if (originLocation == null) {
+                        Toast.makeText(this, "Current location not available", Toast.LENGTH_SHORT).show()
+                        return@addOnSuccessListener
+                    }
+                    val originPoint = Point.fromLngLat(originLocation.longitude, originLocation.latitude)
+                    mapboxNavigation.requestRoutes(
+                        RouteOptions.builder()
+                            .applyDefaultNavigationOptions()
+                            .applyLanguageAndVoiceUnitOptions(this)
+                            .coordinatesList(listOf(originPoint, destinationPoint))
+                            .layersList(listOf(mapboxNavigation.getZLevel(), null))
+                            .build(),
+                        object : NavigationRouterCallback {
+                            override fun onCanceled(routeOptions: RouteOptions, routerOrigin: String) {
+                                // no impl
+                            }
+
+                            override fun onFailure(reasons: List<RouterFailure>, routeOptions: RouteOptions) {
+                                // no impl
+                            }
+
+                            override fun onRoutesReady(
+                                routes: List<NavigationRoute>,
+                                routerOrigin: String
+                            ) {
+                                setRouteAndStartNavigation(routes)
+                            }
+                        }
+                    )
                 }
             }
     }
