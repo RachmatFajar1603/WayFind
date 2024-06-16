@@ -2,6 +2,7 @@ package com.dicoding.wayfind.view.map
 
 import android.Manifest
 import android.annotation.SuppressLint
+import android.content.Intent
 import android.content.pm.PackageManager
 import android.content.res.Configuration
 import android.content.res.Resources
@@ -24,6 +25,9 @@ import androidx.core.view.isVisible
 import com.dicoding.wayfind.BuildConfig
 import com.dicoding.wayfind.R
 import com.dicoding.wayfind.databinding.ActivityTurnByTurnExperienceBinding
+import com.dicoding.wayfind.view.favorite.FavoriteActivity
+import com.dicoding.wayfind.view.home.HomeActivity
+import com.dicoding.wayfind.view.profile.ProfileActivity
 import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationServices
 import com.google.android.gms.maps.model.CameraPosition
@@ -114,6 +118,7 @@ import com.mapbox.search.ui.view.DistanceUnitType
 import com.mapbox.search.ui.view.SearchResultsView
 import com.mapbox.search.ui.view.place.SearchPlace
 import com.mapbox.search.ui.view.place.SearchPlaceBottomSheetView
+import nl.joery.animatedbottombar.AnimatedBottomBar
 import java.util.Date
 import java.util.Locale
 
@@ -762,6 +767,39 @@ class TurnByTurnExperienceActivity : AppCompatActivity() {
                 PERMISSIONS_REQUEST_LOCATION
             )
         }
+        val bottomBar = findViewById<AnimatedBottomBar>(R.id.bottom_bar)
+
+        bottomBar.setOnTabSelectListener(object : AnimatedBottomBar.OnTabSelectListener {
+            override fun onTabSelected(
+                lastIndex: Int,
+                lastTab: AnimatedBottomBar.Tab?,
+                newIndex: Int,
+                newTab: AnimatedBottomBar.Tab
+            ) {
+                if (newTab.id == R.id.tab_maps) {
+                    val intent = Intent(this@TurnByTurnExperienceActivity, TurnByTurnExperienceActivity::class.java)
+                    startActivity(intent)
+                    overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left)
+                } else if (newTab.id == R.id.tab_profile) {
+                    val intent = Intent(this@TurnByTurnExperienceActivity, ProfileActivity::class.java)
+                    startActivity(intent)
+                    overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left)
+                } else if (newTab.id == R.id.tab_home) {
+                    val intent = Intent(this@TurnByTurnExperienceActivity, HomeActivity::class.java)
+                    startActivity(intent)
+                    overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left)
+                } else if (newTab.id == R.id.tab_favorite) {
+                    val intent = Intent(this@TurnByTurnExperienceActivity, FavoriteActivity::class.java)
+                    startActivity(intent)
+                    overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left)
+                }
+            }
+
+            override fun onTabReselected(index: Int, tab: AnimatedBottomBar.Tab) {
+                // Handle tab reselection if needed
+            }
+        })
+
     }
 
 
@@ -973,6 +1011,7 @@ class TurnByTurnExperienceActivity : AppCompatActivity() {
                 }
             }
         )
+
     }
 
     private fun setRouteAndStartNavigation(routes: List<NavigationRoute>) {
