@@ -5,6 +5,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.dicoding.wayfind.data.response.LoginResponse
 import com.dicoding.wayfind.data.retrofit.ApiConfig
+import com.dicoding.wayfind.data.retrofit.ApiService
 import retrofit2.Call
 import retrofit2.Response
 
@@ -22,15 +23,16 @@ class LoginViewModel : ViewModel() {
 
     fun getLoginUser(email: String, password: String) {
         _isLoading.value = true
-        val api = ApiConfig.getApiService().login(email, password)
+        val request = ApiService.LoginRequest(email, password)
+        val api = ApiConfig.getApiService().login(request)
         api.enqueue(object : retrofit2.Callback<LoginResponse> {
             override fun onResponse(call: Call<LoginResponse>, response: Response<LoginResponse>) {
                 _isLoading.value = false
-                val responseBody = response.body()
-                if (response.isSuccessful) {
+                val responseBody: LoginResponse? = response.body()
+                if (response.isSuccessful && responseBody != null) {
                     isError = false
                     _userLogin.value = responseBody!!
-                    _message.value = "Login as ${_userLogin.value!!.loginResult.name}"
+                    _message.value = "Login as ${responseBody.loginResult?.name ?: "User"}"
                 } else {
                     isError = true
                     _message.value = response.message()
