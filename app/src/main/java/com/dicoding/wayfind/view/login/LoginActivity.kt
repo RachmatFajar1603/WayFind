@@ -4,6 +4,7 @@ import android.animation.ObjectAnimator
 import android.content.Intent
 import android.os.Build
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import android.view.WindowInsets
 import android.view.WindowManager
@@ -26,15 +27,16 @@ class LoginActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        Log.d("LoginActivity", "onCreate called")
         binding = ActivityLoginBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
         val appPreferences = AppPreferences(this)
 
-        loginViewModel.message.observe(this) {
-            val user = loginViewModel.userlogin.value
-            checkLoginUser(it, loginViewModel.isError, user?.loginResult?.token, appPreferences)
-        }
+//        loginViewModel.message.observe(this) {
+//            val user = loginViewModel.userlogin.value
+//            checkLoginUser(it, loginViewModel.isError, user?.loginResult?.token, appPreferences)
+//        }
 
 
         if (appPreferences.isLoggedIn) {
@@ -47,7 +49,7 @@ class LoginActivity : AppCompatActivity() {
             if (binding.etEmail.isEmailValid && binding.etPass.isPasswordValid) {
                 val email = binding.etEmail.text.toString()
                 val password = binding.etPass.text.toString()
-                loginViewModel.getLoginUser(email, password)
+                loginViewModel.getLoginUser(email, password, "token")
             }
         }
 
@@ -55,11 +57,17 @@ class LoginActivity : AppCompatActivity() {
             startActivity(Intent(this, RegisterActivity::class.java))
         }
 
+        setupView()
+
+        loginViewModel.message.observe(this) {
+            val user = loginViewModel.userlogin.value
+            checkLoginUser(it, loginViewModel.isError, user?.token, appPreferences)
+        }
 
     }
 
     private fun checkLoginUser(message: String, isError: Boolean, token: String?, preference: AppPreferences) {
-        if (!isError) {
+        if (!isError && message == "User logged in successfully") {
             Toast.makeText(
                 this,
                 message,

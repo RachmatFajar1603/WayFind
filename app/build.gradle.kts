@@ -17,7 +17,7 @@ android {
         versionName = "1.0"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
-        buildConfigField("String", "BASE_URL", "\"https://wayfind-api-vf3m5ytoka-et.a.run.app/\"")
+        buildConfigField("String", "BASE_URL", "\"https://wayfind-api-vf3m5ytoka-et.a.run.app\"")
     }
 
     buildTypes {

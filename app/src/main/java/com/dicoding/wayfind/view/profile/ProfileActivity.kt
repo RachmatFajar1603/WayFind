@@ -6,13 +6,16 @@ import android.os.Bundle
 import android.view.WindowInsets
 import android.view.WindowManager
 import android.widget.ImageButton
+import android.widget.TextView
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
+import com.dicoding.wayfind.AppPreferences
 import com.dicoding.wayfind.R
 import com.dicoding.wayfind.view.favorite.FavoriteActivity
 import com.dicoding.wayfind.view.home.HomeActivity
+import com.dicoding.wayfind.view.login.LoginActivity
 import com.dicoding.wayfind.view.map.TurnByTurnExperienceActivity
 import nl.joery.animatedbottombar.AnimatedBottomBar
 
@@ -63,6 +66,31 @@ class ProfileActivity : AppCompatActivity() {
                 // Handle tab reselection if needed
             }
         })
+
+        val logoutButton = findViewById<ImageButton>(R.id.logout_button)
+        logoutButton.setOnClickListener {
+            // Clear user session data
+            val appPreferences = AppPreferences(this)
+            appPreferences.clearUserSession()
+
+            // Navigate back to LoginActivity
+            val intent = Intent(this, LoginActivity::class.java)
+            intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+            startActivity(intent)
+        }
+
+
+        val appPreferences = AppPreferences(this)
+
+        val tvFullName = findViewById<TextView>(R.id.tv_name_value)
+        val tvEmail = findViewById<TextView>(R.id.tv_name_email)
+        val tvAge = findViewById<TextView>(R.id.tv_name_age)
+        val tvGender = findViewById<TextView>(R.id.tv_gender_value)
+
+        tvFullName.text = appPreferences.fullName
+        tvEmail.text = appPreferences.email
+        tvAge.text = appPreferences.age.toString()
+        tvGender.text = appPreferences.gender
     }
 
     private fun setupView() {
