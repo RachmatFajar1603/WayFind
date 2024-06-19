@@ -87,6 +87,7 @@ dependencies {
     implementation ("com.mapbox.search:mapbox-search-android-ui:2.2.0-rc.1")
 
 
+
     // Retrofit
     implementation("com.squareup.retrofit2:retrofit:2.9.0")
     implementation("com.squareup.retrofit2:converter-gson:2.9.0")
