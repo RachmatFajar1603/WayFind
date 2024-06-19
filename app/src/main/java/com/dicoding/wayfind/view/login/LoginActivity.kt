@@ -46,8 +46,8 @@ class LoginActivity : AppCompatActivity() {
         binding.btnLogin.setOnClickListener {
             if (binding.etEmail.isEmailValid && binding.etPass.isPasswordValid) {
                 val email = binding.etEmail.text.toString()
-                val pass = binding.etPass.text.toString()
-                loginViewModel.getLoginUser(email, pass)
+                val password = binding.etPass.text.toString()
+                loginViewModel.getLoginUser(email, password)
             }
         }
 
