@@ -6,11 +6,14 @@ import android.content.Intent
 import android.content.pm.PackageManager
 import android.content.res.Configuration
 import android.content.res.Resources
+import android.os.Build
 import android.os.Bundle
 import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
+import android.view.WindowInsets
+import android.view.WindowManager
 import android.widget.SearchView
 import android.widget.Toast
 import android.widget.Toolbar
@@ -47,6 +50,7 @@ import com.mapbox.maps.Style
 import com.mapbox.maps.plugin.LocationPuck2D
 import com.mapbox.maps.plugin.animation.camera
 import com.mapbox.maps.plugin.annotation.annotations
+import com.mapbox.maps.plugin.annotation.generated.CircleAnnotation
 import com.mapbox.maps.plugin.annotation.generated.CircleAnnotationOptions
 import com.mapbox.maps.plugin.annotation.generated.createCircleAnnotationManager
 import com.mapbox.maps.plugin.gestures.gestures
@@ -508,6 +512,8 @@ class TurnByTurnExperienceActivity : AppCompatActivity() {
         binding = ActivityTurnByTurnExperienceBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        setupView()
+
         fusedLocationClient = LocationServices.getFusedLocationProviderClient(this)
 
         // initialize Navigation Camera
@@ -799,6 +805,53 @@ class TurnByTurnExperienceActivity : AppCompatActivity() {
                 // Handle tab reselection if needed
             }
         })
+
+        val annotationApi = binding.mapView?.annotations
+        // Create a CircleAnnotationManager
+        val circleAnnotationManager = binding.mapView.annotations.createCircleAnnotationManager()
+
+        // Retrieve the string-array resources
+        val coordinatesArray = resources.getStringArray(R.array.data_coordinate)
+        val namesArray = resources.getStringArray(R.array.data_name)
+
+        // Create a list to store the created annotations
+        val annotations = mutableListOf<CircleAnnotation>()
+
+        // Iterate over each item in the array
+        for (i in coordinatesArray.indices) {
+            // Split the string into longitude and latitude
+            val (longitude, latitude) = coordinatesArray[i].split(",").map { it.toDouble() }
+
+            // Create the CircleAnnotationOptions for each coordinate
+            val circleAnnotationOptions: CircleAnnotationOptions = CircleAnnotationOptions()
+                .withPoint(Point.fromLngLat(longitude, latitude))
+                .withCircleRadius(8.0)
+                .withCircleColor("#615EFC")
+                .withCircleStrokeWidth(2.0)
+                .withCircleStrokeColor("#615EFC")
+
+            // Add the resulting circle to the map and store it in the list
+            annotations.add(circleAnnotationManager.create(circleAnnotationOptions))
+        }
+
+        // Add a click listener to the CircleAnnotationManager
+        circleAnnotationManager.addClickListener { clickedAnnotation ->
+            // Find the index of the clicked annotation in the list
+            val index = annotations.indexOf(clickedAnnotation)
+
+            // Get the corresponding name from the namesArray
+            val name = namesArray[index]
+
+            // Display the name (you might want to replace this with your own method of displaying the name)
+            Toast.makeText(this, name, Toast.LENGTH_SHORT).show()
+
+            // Start navigation to the clicked annotation's location
+            val destination = clickedAnnotation.point
+            findRoute(destination)  // Assuming findRoute is a method that starts navigation to the given Point
+
+            true // Indicate that the click event was consumed
+        }
+
     }
 
 
@@ -1094,5 +1147,18 @@ class TurnByTurnExperienceActivity : AppCompatActivity() {
     private fun stopSimulation() {
         mapboxNavigation.mapboxReplayer.stop()
         mapboxNavigation.mapboxReplayer.clearEvents()
+    }
+
+    private fun setupView() {
+        @Suppress("DEPRECATION")
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
+            window.insetsController?.hide(WindowInsets.Type.statusBars())
+        } else {
+            window.setFlags(
+                WindowManager.LayoutParams.FLAG_FULLSCREEN,
+                WindowManager.LayoutParams.FLAG_FULLSCREEN
+            )
+        }
+        supportActionBar?.hide()
     }
 }
