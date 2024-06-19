@@ -38,7 +38,7 @@
             android:fontFamily="@font/poppins_semi_bold"
             android:textSize="20sp"/>
 
-        <com.dicoding.wayfind.customview.CustomEmail
+        <com.dicoding.wayfind.customview.CustomName
             android:id="@+id/et_Name"
             android:layout_width="match_parent"
             android:layout_height="55dp"

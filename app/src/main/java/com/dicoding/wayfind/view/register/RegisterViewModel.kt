@@ -5,6 +5,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.dicoding.wayfind.data.response.RegisterResponse
 import com.dicoding.wayfind.data.retrofit.ApiConfig
+import com.dicoding.wayfind.data.retrofit.ApiService
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -18,9 +19,10 @@ class RegisterViewModel : ViewModel() {
 
     var isError: Boolean = false
 
-    fun getRegisterUser(name: String, email: String, password: String) {
+    fun getRegisterUser(name: String, email: String, password: String, age: Int, gender: String, message: String) {
         _isLoading.value = true
-        val api = ApiConfig.getApiService().register(name, email, password)
+        val request = ApiService.RegisterRequest(name, email, password, age, gender, message)
+        val api = ApiConfig.getApiService().register(request)
         api.enqueue(object : Callback<RegisterResponse> {
             override fun onResponse(
                 call: Call<RegisterResponse>,
@@ -28,9 +30,9 @@ class RegisterViewModel : ViewModel() {
             ) {
                 _isLoading.value = false
                 val responseBody = response.body()
-                if (response.isSuccessful) {
+                if (response.isSuccessful && responseBody?.message == "User registered successfully") {
                     isError = false
-                    _message.value = responseBody?.message.toString()
+                    _message.value = responseBody.message
                 } else {
                     isError = true
                     _message.value = response.message()
@@ -40,6 +42,7 @@ class RegisterViewModel : ViewModel() {
             override fun onFailure(call: Call<RegisterResponse>, t: Throwable) {
                 isError = true
                 _isLoading.value = false
+                _message.value = t.message.toString()
             }
         })
     }
