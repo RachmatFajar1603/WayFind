@@ -52,7 +52,6 @@
                 android:inputType="phone"
                 android:maxLines="1"
                 android:padding="8dp"
-                android:textColor="@color/black"
                 android:textColorHint="#80837E7E"
                 android:textSize="14sp" />
 
@@ -76,7 +75,7 @@
                 android:inputType="textPassword"
                 android:maxLines="1"
                 android:padding="8dp"
-                android:textColor="@color/black"
+
                 android:textColorHint="#80837E7E"
                 android:textSize="14sp" />
 
