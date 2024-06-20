@@ -889,6 +889,7 @@ class TurnByTurnExperienceActivity : AppCompatActivity() {
             // Start navigation to the clicked annotation's location
             val destination = clickedAnnotation.point
             findRoute(destination)  // Assuming findRoute is a method that starts navigation to the given Point
+            intent.putExtra("name", name)
 
             intent.putExtra("name", name)
 
