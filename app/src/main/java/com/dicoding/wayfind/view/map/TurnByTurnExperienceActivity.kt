@@ -2,13 +2,22 @@ package com.dicoding.wayfind.view.map
 
 import android.Manifest
 import android.annotation.SuppressLint
+import android.app.ProgressDialog
 import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.content.res.Configuration
 import android.content.res.Resources
+import android.graphics.Color
 import android.os.Build
 import android.os.Bundle
+import android.os.Handler
+import android.os.Looper
+import android.text.Spannable
+import android.text.SpannableString
+import android.text.Spanned
+import android.text.TextUtils
+import android.text.style.ImageSpan
 import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
@@ -16,11 +25,14 @@ import android.view.View
 import android.view.WindowInsets
 import android.view.WindowManager
 import android.widget.SearchView
+import android.widget.TextView
 import android.widget.Toast
 import android.widget.Toolbar
 import androidx.activity.OnBackPressedCallback
 import androidx.activity.enableEdgeToEdge
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
+import androidx.cardview.widget.CardView
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.core.view.ViewCompat
@@ -138,6 +150,7 @@ import okhttp3.Callback
 import okhttp3.Response
 import okhttp3.ResponseBody
 import org.json.JSONObject
+import java.text.NumberFormat
 import java.util.Date
 import java.util.Locale
 
@@ -228,6 +241,7 @@ class TurnByTurnExperienceActivity : AppCompatActivity() {
      * Generates updates for the [MapboxManeuverView] to display the upcoming maneuver instructions
      * and remaining distance to the maneuver point.
      */
+
     private lateinit var maneuverApi: MapboxManeuverApi
 
     /**
@@ -375,9 +389,13 @@ class TurnByTurnExperienceActivity : AppCompatActivity() {
      * Gets notified with progress along the currently active route.
      */
     private var distanceRemaining: Float = 0f
+    private var timeRemaining: Double = 0.0
 
     private val routeProgressObserver = RouteProgressObserver { routeProgress ->
         distanceRemaining = routeProgress.distanceRemaining
+        timeRemaining = routeProgress.durationRemaining
+
+
         // update the camera position to account for the progressed fragment of the route
         viewportDataSource.onRouteProgressChanged(routeProgress)
         viewportDataSource.evaluate()
@@ -1136,6 +1154,8 @@ class TurnByTurnExperienceActivity : AppCompatActivity() {
         binding.tripProgressCard.visibility = View.VISIBLE
         binding.analystButton.visibility = View.VISIBLE
 
+        binding.dataTextView.text = ""
+
         // move the camera to overview when new route is available
         navigationCamera.requestNavigationCameraToOverview()
 
@@ -1187,23 +1207,33 @@ class TurnByTurnExperienceActivity : AppCompatActivity() {
         supportActionBar?.hide()
 
         binding.analystButton.setOnClickListener {
-            CoroutineScope(Dispatchers.Main).launch {
-                var age: Int? = null
-                var gender: String? = null
+            val progressDialog = ProgressDialog(this@TurnByTurnExperienceActivity)
+            progressDialog.setMessage("Loading....")
+            progressDialog.show()
 
-                withContext(Dispatchers.IO) {
-                    try {
-                        val apiService = ApiConfig.getApiService()
-                        val token = "Bearer " + AppPreferences(this@TurnByTurnExperienceActivity).authToken
-                        val user = apiService.getUser(token)
-                        age = user.age
-                        gender = user.gender
-                    } catch (e: Exception) {
-                        Toast.makeText(this@TurnByTurnExperienceActivity, e.message, Toast.LENGTH_SHORT).show()
+            Handler(Looper.getMainLooper()).postDelayed({
+                progressDialog.dismiss()
+
+                AlertDialog.Builder(this@TurnByTurnExperienceActivity)
+                    .setTitle("Analyst Completed")
+                    .setMessage("The analyst has been successfully completed. Thank you for using our service!")
+                    .setPositiveButton("OK") { dialog, _ ->
+                        dialog.dismiss()
                     }
-                }
+                    .show()
+            }, 3000)
+
+            CoroutineScope(Dispatchers.Main).launch {
+                // Get user data from SharedPreferences
+                val sharedPref = getSharedPreferences("user_data", Context.MODE_PRIVATE)
+                val age = sharedPref.getInt("age", 0)
+                val gender = sharedPref.getString("gender", "")
 
                 val name = intent.getStringExtra("name")
+                if (name ==null || name.isEmpty()) {
+                    Toast.makeText(this@TurnByTurnExperienceActivity, "Destination is not registered", Toast.LENGTH_SHORT).show()
+                    return@launch
+                }
 
                 val currentLocation = navigationLocationProvider.lastLocation
                 val position = if (currentLocation != null) {
@@ -1212,15 +1242,73 @@ class TurnByTurnExperienceActivity : AppCompatActivity() {
                     "Unknown"
                 }
 
-                val dataToSend = mapOf(
-                    "age" to age,
-                    "gender" to gender,
-                    "pickupLocation" to position,
-                    "destination" to name,
-                    "distance" to distanceRemaining
+                val dataToSend = ApiService.PostDataRequest(
+                    age = age,
+                    gender = gender ?: "",
+                    pickupLocation = position,
+                    destination = name ?: "",
+                    distance = distanceRemaining.toDouble()
                 )
 
-                Log.d("Analyst", dataToSend.toString())
+                // Initialize ApiService
+                val apiService: ApiService by lazy {
+                    ApiConfig.getApiService()
+                }
+
+                // Call postData function from ApiService
+                val call = apiService.postData(dataToSend)
+                call.enqueue(object : retrofit2.Callback<ResponseBody> {
+                    override fun onResponse(call: retrofit2.Call<ResponseBody>, response: retrofit2.Response<ResponseBody>) {
+                        if (response.isSuccessful) {
+                            // Get response body
+                            val responseBody = response.body()?.string()
+
+                            // Parse JSON
+                            val jsonObject = JSONObject(responseBody)
+
+                            // Get data from JSON
+                            val vehicle = jsonObject.getString("vehicle")
+                            val price = jsonObject.getInt("price")
+
+                            val formatRupiah = NumberFormat.getCurrencyInstance(Locale("id", "ID"))
+                            val priceInIDR = formatRupiah.format(price)
+
+
+                            val carDrawable = ContextCompat.getDrawable(this@TurnByTurnExperienceActivity, R.drawable.ic_car)
+                            var moneyDrawable = ContextCompat.getDrawable(this@TurnByTurnExperienceActivity, R.drawable.ic_money)
+
+                            val dataTextView: TextView = findViewById(R.id.dataTextView)
+                            val textSize = dataTextView.textSize.toInt()
+                            val desiredSize = textSize * 1.5
+
+                            carDrawable?.setBounds(0, 0, desiredSize.toInt(), desiredSize.toInt())
+                            moneyDrawable?.setBounds(0, 0, desiredSize.toInt(), desiredSize.toInt())
+
+                            val carImageSpan = carDrawable?.let { ImageSpan(it, ImageSpan.ALIGN_BOTTOM) }
+                            val moneyImageSpan = moneyDrawable?.let { ImageSpan(it, ImageSpan.ALIGN_BOTTOM) }
+
+                            val vehicleString = SpannableString(" $vehicle").apply {
+                                carImageSpan?.let { setSpan(it, 0, 1, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE) }
+                            }
+
+                            val priceInIDRString = SpannableString(" $priceInIDR").apply {
+                                moneyImageSpan?.let { setSpan(it, 0, 1, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE) }
+                            }
+
+                            val combinedString = SpannableString(TextUtils.concat(vehicleString, priceInIDRString))
+
+                            dataTextView.text = combinedString
+                        } else {
+                            // Handle unsuccessful response
+                        }
+                    }
+
+                    override fun onFailure(call: retrofit2.Call<ResponseBody>, t: Throwable) {
+                        // Handle failure
+                    }
+                })
+
+                intent = Intent()
             }
         }
     }
