@@ -1,13 +1,13 @@
 <resources>
     <string name="app_name">WayFind</string>
-    <string name="title_menu_1">Navigate your surroundings with effortless confidance</string>
-    <string name="title_menu_2">Belajar Fleksibel Sesuai Jadwal Anda</string>
-    <string name="title_menu_3">Code Review dari Developer Expert</string>
-    <string name="title_menu_4">Alumni Terpercaya di Berbagai Perusahaan</string>
+    <string name="title_menu_1">Transport Navigation App</string>
+    <string name="title_menu_2">Transportation Recommender</string>
+    <string name="title_menu_3">Destination Search</string>
+    <string name="title_menu_4">Navigation</string>
     <string name="desc_menu_1">Explore new destinations, effortlessly find your path, and never lose your way!</string>
-    <string name="desc_menu_2">Belajar kapan pun, di mana pun, secara mandiri. Bebas memilih kelas sesuai minat belajar. Akses seumur hidup ke kelas dan forum diskusi setelah lulus.</string>
-    <string name="desc_menu_3">Validasi skill Anda melalui 1-on-1 Professional Code Review yang diberikan langsung oleh Developer Expert.</string>
-    <string name="desc_menu_4">Sertifikat yang membuktikan pengetahuan fundamental beserta keterampilan nyata yang diinginkan perusahaan global.</string>
+    <string name="desc_menu_2">Discover the best routes and modes of transportation tailored to your needs. Our intelligent system optimizes your commute, offering efficient, eco-friendly, and personalized travel solutions. Navigate your journey with ease and confidence.</string>
+    <string name="desc_menu_3">Find your destination quickly and easily. Our smart search feature provides the most efficient routes, estimated travel times, and best transportation options to ensure a smooth journey to your desired location.</string>
+    <string name="desc_menu_4">Experience smooth and reliable navigation with our advanced system. Get real-time directions, traffic updates, and alternative routes to ensure you reach your destination swiftly and safely.</string>
     <string name="get_started">Get Started</string>
     <string name="home">Home</string>
     <string name="maps">Maps</string>

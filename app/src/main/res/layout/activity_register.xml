@@ -55,7 +55,6 @@
                 android:inputType="phone"
                 android:maxLines="1"
                 android:padding="8dp"
-                android:textColor="@color/black"
                 android:textColorHint="#80837E7E"
                 android:textSize="14sp" />
 
@@ -79,7 +78,6 @@
                 android:inputType="phone"
                 android:maxLines="1"
                 android:padding="8dp"
-                android:textColor="@color/black"
                 android:textColorHint="#80837E7E"
                 android:textSize="14sp" />
 
@@ -103,7 +101,6 @@
                 android:inputType="textPassword"
                 android:maxLines="1"
                 android:padding="8dp"
-                android:textColor="@color/black"
                 android:textColorHint="#80837E7E"
                 android:textSize="14sp" />
 
@@ -127,7 +124,6 @@
                 android:inputType="number"
                 android:maxLines="1"
                 android:padding="8dp"
-                android:textColor="@color/black"
                 android:textColorHint="#80837E7E"
                 android:textSize="14sp" />
 
@@ -152,7 +148,6 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/male"
-                    android:textColor="@color/black"
                     android:textSize="14sp" />
 
                 <RadioButton
@@ -160,7 +155,6 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/female"
-                    android:textColor="@color/black"
                     android:textSize="14sp" />
             </RadioGroup>
 
