@@ -2,10 +2,13 @@ package com.dicoding.wayfind.data.retrofit
 
 import com.dicoding.wayfind.data.response.LoginResponse
 import com.dicoding.wayfind.data.response.RegisterResponse
+import okhttp3.ResponseBody
 import retrofit2.Call
 import retrofit2.http.Body
 import retrofit2.http.Field
 import retrofit2.http.FormUrlEncoded
+import retrofit2.http.GET
+import retrofit2.http.Header
 import retrofit2.http.POST
 
 interface ApiService {
@@ -30,6 +33,19 @@ interface ApiService {
         val token: String
     )
 
+    data class PostDataRequest(
+        val position: String,
+        val route: String,
+        val distance: String
+    )
+
+    data class User (
+        val name: String,
+        val email: String,
+        val age: Int,
+        val gender: String
+    )
+
     @POST("api/auth/register")
     fun register(
         @Body request: RegisterRequest
@@ -44,4 +60,12 @@ interface ApiService {
     fun logout(
         @Body request: LogoutRequest
     ): Call<LoginResponse>
+
+    @POST("")
+    fun postData(
+        @Body request: PostDataRequest
+    ): Call<ResponseBody>
+
+    @GET("api/profile")
+    suspend fun getUser(@Header("Authorization") token: String): User
 }

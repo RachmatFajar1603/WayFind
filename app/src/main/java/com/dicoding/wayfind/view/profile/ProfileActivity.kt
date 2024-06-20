@@ -1,5 +1,6 @@
 package com.dicoding.wayfind.view.profile
 
+import android.content.Context
 import android.content.Intent
 import android.os.Build
 import android.os.Bundle
@@ -13,10 +14,15 @@ import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import com.dicoding.wayfind.AppPreferences
 import com.dicoding.wayfind.R
+import com.dicoding.wayfind.data.retrofit.ApiConfig
 import com.dicoding.wayfind.view.favorite.FavoriteActivity
 import com.dicoding.wayfind.view.home.HomeActivity
 import com.dicoding.wayfind.view.login.LoginActivity
 import com.dicoding.wayfind.view.map.TurnByTurnExperienceActivity
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import nl.joery.animatedbottombar.AnimatedBottomBar
 
 class ProfileActivity : AppCompatActivity() {
@@ -24,6 +30,7 @@ class ProfileActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_profile)
 
+        fetchUserData()
         setupView()
 
         val backButton = findViewById<ImageButton>(R.id.back_button_profile)
@@ -78,19 +85,6 @@ class ProfileActivity : AppCompatActivity() {
             intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
             startActivity(intent)
         }
-
-
-        val appPreferences = AppPreferences(this)
-
-        val tvFullName = findViewById<TextView>(R.id.tv_name_value)
-        val tvEmail = findViewById<TextView>(R.id.tv_name_email)
-        val tvAge = findViewById<TextView>(R.id.tv_name_age)
-        val tvGender = findViewById<TextView>(R.id.tv_gender_value)
-
-        tvFullName.text = appPreferences.fullName
-        tvEmail.text = appPreferences.email
-        tvAge.text = appPreferences.age.toString()
-        tvGender.text = appPreferences.gender
     }
 
     private fun setupView() {
@@ -104,5 +98,36 @@ class ProfileActivity : AppCompatActivity() {
             )
         }
         supportActionBar?.hide()
+    }
+
+    private fun fetchUserData() {
+        CoroutineScope(Dispatchers.IO).launch {
+            try {
+                val apiService = ApiConfig.getApiService()
+                val token = "Bearer " + AppPreferences(this@ProfileActivity).authToken
+                val user = apiService.getUser(token)
+
+                withContext(Dispatchers.Main) {
+                    val tvFullName = findViewById<TextView>(R.id.tv_name_value)
+                    val tvEmail = findViewById<TextView>(R.id.tv_name_email)
+                    val tvAge = findViewById<TextView>(R.id.tv_name_age)
+                    val tvGender = findViewById<TextView>(R.id.tv_gender_value)
+
+                    tvFullName.text = user.name
+                    tvEmail.text = user.email
+                    tvAge.text = user.age.toString()
+                    tvGender.text = user.gender
+
+                    val sharedPref = getSharedPreferences("user_data", Context.MODE_PRIVATE)
+                    with (sharedPref.edit()) {
+                        putInt("age", user.age)
+                        putString("gender", user.gender)
+                        apply()
+                    }
+                }
+            } catch (e: Exception) {
+                // Handle the exception
+            }
+        }
     }
 }

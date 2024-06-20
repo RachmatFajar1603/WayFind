@@ -2,6 +2,7 @@ package com.dicoding.wayfind.view.map
 
 import android.Manifest
 import android.annotation.SuppressLint
+import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.content.res.Configuration
@@ -25,8 +26,11 @@ import androidx.core.content.ContextCompat
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.core.view.isVisible
+import com.dicoding.wayfind.AppPreferences
 import com.dicoding.wayfind.BuildConfig
 import com.dicoding.wayfind.R
+import com.dicoding.wayfind.data.retrofit.ApiConfig
+import com.dicoding.wayfind.data.retrofit.ApiService
 import com.dicoding.wayfind.databinding.ActivityTurnByTurnExperienceBinding
 import com.dicoding.wayfind.view.favorite.FavoriteActivity
 import com.dicoding.wayfind.view.home.HomeActivity
@@ -60,6 +64,7 @@ import com.mapbox.navigation.base.TimeFormat
 import com.mapbox.navigation.base.extensions.applyDefaultNavigationOptions
 import com.mapbox.navigation.base.extensions.applyLanguageAndVoiceUnitOptions
 import com.mapbox.navigation.base.formatter.DistanceFormatterOptions
+import com.mapbox.navigation.base.internal.route.routeOptions
 import com.mapbox.navigation.base.options.NavigationOptions
 import com.mapbox.navigation.base.route.NavigationRoute
 import com.mapbox.navigation.base.route.NavigationRouterCallback
@@ -70,6 +75,7 @@ import com.mapbox.navigation.core.formatter.MapboxDistanceFormatter
 import com.mapbox.navigation.core.lifecycle.MapboxNavigationApp
 import com.mapbox.navigation.core.lifecycle.MapboxNavigationObserver
 import com.mapbox.navigation.core.lifecycle.requireMapboxNavigation
+import com.mapbox.navigation.core.replay.MapboxReplayer
 import com.mapbox.navigation.core.replay.route.ReplayProgressObserver
 import com.mapbox.navigation.core.replay.route.ReplayRouteMapper
 import com.mapbox.navigation.core.trip.session.LocationMatcherResult
@@ -122,7 +128,16 @@ import com.mapbox.search.ui.view.DistanceUnitType
 import com.mapbox.search.ui.view.SearchResultsView
 import com.mapbox.search.ui.view.place.SearchPlace
 import com.mapbox.search.ui.view.place.SearchPlaceBottomSheetView
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import nl.joery.animatedbottombar.AnimatedBottomBar
+import okhttp3.Call
+import okhttp3.Callback
+import okhttp3.Response
+import okhttp3.ResponseBody
+import org.json.JSONObject
 import java.util.Date
 import java.util.Locale
 
@@ -148,6 +163,7 @@ class TurnByTurnExperienceActivity : AppCompatActivity() {
      * Debug observer that makes sure the replayer has always an up-to-date information to generate mock updates.
      */
     private lateinit var replayProgressObserver: ReplayProgressObserver
+    private val mapboxReplayer = MapboxReplayer()
 
     /**
      * Debug object that converts a route into events that can be replayed to navigate a route.
@@ -358,7 +374,10 @@ class TurnByTurnExperienceActivity : AppCompatActivity() {
     /**
      * Gets notified with progress along the currently active route.
      */
+    private var distanceRemaining: Float = 0f
+
     private val routeProgressObserver = RouteProgressObserver { routeProgress ->
+        distanceRemaining = routeProgress.distanceRemaining
         // update the camera position to account for the progressed fragment of the route
         viewportDataSource.onRouteProgressChanged(routeProgress)
         viewportDataSource.evaluate()
@@ -400,8 +419,11 @@ class TurnByTurnExperienceActivity : AppCompatActivity() {
      * - routes annotations get refreshed (for example, congestion annotation that indicate the live traffic along the route)
      * - driver got off route and a reroute was executed
      */
+    private var currentRoutes: List<NavigationRoute> = emptyList()
+
     private val routesObserver = RoutesObserver { routeUpdateResult ->
         if (routeUpdateResult.navigationRoutes.isNotEmpty()) {
+            currentRoutes = routeUpdateResult.navigationRoutes
             // generate route geometries asynchronously and render them
             routeLineApi.setNavigationRoutes(
                 routeUpdateResult.navigationRoutes
@@ -440,6 +462,7 @@ class TurnByTurnExperienceActivity : AppCompatActivity() {
             override fun onAttached(mapboxNavigation: MapboxNavigation) {
                 mapboxNavigation.registerLocationObserver(locationObserver)
                 mapboxNavigation.registerRoutesObserver(routesObserver)
+                mapboxNavigation.registerRouteProgressObserver(routeProgressObserver)
                 mapboxNavigation.registerLocationObserver(locationObserver)
                 mapboxNavigation.registerRouteProgressObserver(routeProgressObserver)
 
@@ -511,6 +534,8 @@ class TurnByTurnExperienceActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityTurnByTurnExperienceBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
+        replayProgressObserver = ReplayProgressObserver(mapboxReplayer)
 
         setupView()
 
@@ -643,11 +668,13 @@ class TurnByTurnExperienceActivity : AppCompatActivity() {
             updateOnBackPressedCallbackEnabled()
         }
 
+
         toolbar = findViewById<androidx.appcompat.widget.Toolbar>(R.id.toolbar)
         toolbar.apply {
             title = getString(R.string.toolbar_title)
             setSupportActionBar(this)
         }
+
 
         searchResultsView = findViewById<SearchResultsView>(R.id.search_results_view).apply {
             initialize(
@@ -1111,6 +1138,7 @@ class TurnByTurnExperienceActivity : AppCompatActivity() {
         binding.soundButton.visibility = View.VISIBLE
         binding.routeOverview.visibility = View.VISIBLE
         binding.tripProgressCard.visibility = View.VISIBLE
+        binding.analystButton.visibility = View.VISIBLE
 
         // move the camera to overview when new route is available
         navigationCamera.requestNavigationCameraToOverview()
@@ -1131,6 +1159,7 @@ class TurnByTurnExperienceActivity : AppCompatActivity() {
         binding.maneuverView.visibility = View.INVISIBLE
         binding.routeOverview.visibility = View.INVISIBLE
         binding.tripProgressCard.visibility = View.INVISIBLE
+        binding.analystButton.visibility = View.INVISIBLE
     }
 
     @OptIn(ExperimentalPreviewMapboxNavigationAPI::class)
@@ -1160,5 +1189,43 @@ class TurnByTurnExperienceActivity : AppCompatActivity() {
             )
         }
         supportActionBar?.hide()
+
+        binding.analystButton.setOnClickListener {
+            CoroutineScope(Dispatchers.Main).launch {
+                var age: Int? = null
+                var gender: String? = null
+
+                withContext(Dispatchers.IO) {
+                    try {
+                        val apiService = ApiConfig.getApiService()
+                        val token = "Bearer " + AppPreferences(this@TurnByTurnExperienceActivity).authToken
+                        val user = apiService.getUser(token)
+                        age = user.age
+                        gender = user.gender
+                    } catch (e: Exception) {
+                        Toast.makeText(this@TurnByTurnExperienceActivity, e.message, Toast.LENGTH_SHORT).show()
+                    }
+                }
+
+                val name = intent.getStringExtra("name")
+
+                val currentLocation = navigationLocationProvider.lastLocation
+                val position = if (currentLocation != null) {
+                    "${currentLocation.longitude},${currentLocation.latitude}"
+                } else {
+                    "Unknown"
+                }
+
+                val dataToSend = mapOf(
+                    "age" to age,
+                    "gender" to gender,
+                    "pickupLocation" to position,
+                    "destination" to name,
+                    "distance" to distanceRemaining
+                )
+
+                Log.d("Analyst", dataToSend.toString())
+            }
+        }
     }
 }
