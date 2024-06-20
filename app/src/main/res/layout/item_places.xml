@@ -36,12 +36,6 @@
                 android:textSize="16dp"
                 android:textColor="@color/purple"/>
 
-            <ImageView
-                android:layout_width="25dp"
-                android:layout_height="25dp"
-                android:background="@drawable/favorite"
-                android:layout_marginTop="10dp"
-                android:layout_marginStart="145dp"/>
         </LinearLayout>
 
 
