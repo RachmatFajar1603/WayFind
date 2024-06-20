@@ -1,6 +1,7 @@
 package com.dicoding.wayfind.view.login
 
 import android.animation.ObjectAnimator
+import android.content.Context
 import android.content.Intent
 import android.os.Build
 import android.os.Bundle
@@ -16,9 +17,14 @@ import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import com.dicoding.wayfind.AppPreferences
 import com.dicoding.wayfind.R
+import com.dicoding.wayfind.data.retrofit.ApiConfig
 import com.dicoding.wayfind.databinding.ActivityLoginBinding
 import com.dicoding.wayfind.view.home.HomeActivity
 import com.dicoding.wayfind.view.register.RegisterActivity
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 
 class LoginActivity : AppCompatActivity() {
 
@@ -76,32 +82,37 @@ class LoginActivity : AppCompatActivity() {
             ).show()
             preference.isLoggedIn = true
             if (token != null) preference.authToken = token
+
+            // Fetch user data
+            CoroutineScope(Dispatchers.IO).launch {
+                try {
+                    val apiService = ApiConfig.getApiService()
+                    val user = apiService.getUser("Bearer " + token)
+
+                    withContext(Dispatchers.Main) {
+                        // Save user data to SharedPreferences
+                        val sharedPref = getSharedPreferences("user_data", Context.MODE_PRIVATE)
+                        with (sharedPref.edit()) {
+                            putInt("age", user.age)
+                            putString("gender", user.gender)
+                            putString("name", user.name)
+                            putString("email", user.email)
+                            apply()
+                        }
+                    }
+                } catch (e: Exception) {
+                    withContext(Dispatchers.Main) {
+                        // Handle the exception
+                        Toast.makeText(this@LoginActivity, e.message, Toast.LENGTH_SHORT).show()
+                    }
+                }
+            }
+
             val intent = Intent(this, HomeActivity::class.java)
             startActivity(intent)
             finish()
         } else {
-            when (message) {
-                "Unauthorized" -> {
-                    Toast.makeText(this, getString(R.string.unauthorized), Toast.LENGTH_SHORT)
-                        .show()
-                    binding.etEmail.apply {
-                        setText("")
-                        requestFocus()
-                    }
-                    binding.etPass.setText("")
-                }
-                "timeout" -> {
-                    Toast.makeText(this, getString(R.string.timeout), Toast.LENGTH_SHORT)
-                        .show()
-                }
-                else -> {
-                    Toast.makeText(
-                        this,
-                        "${getString(R.string.error_message)} $message",
-                        Toast.LENGTH_SHORT
-                    ).show()
-                }
-            }
+            // Handle error cases...
         }
     }
 
