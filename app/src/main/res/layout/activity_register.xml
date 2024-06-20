@@ -8,160 +8,173 @@
     android:backgroundTint="@color/white"
     tools:context=".view.register.RegisterActivity">
 
-    <TextView
-        android:id="@+id/textView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="32dp"
-        android:layout_marginTop="32dp"
-        android:fontFamily="@font/poppins_semi_bold"
-        android:text="Create \nAccount"
-        android:textSize="30sp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <LinearLayout
-        android:id="@+id/linearLayout"
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
+        android:layout_height="match_parent"
+        android:fillViewport="true"
         app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView"
-        android:padding="32dp">
+        app:layout_constraintTop_toTopOf="parent">
 
-        <TextView
-            android:id="@+id/textView1"
+        <LinearLayout
+            android:id="@+id/linearLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/full_name"
-            android:fontFamily="@font/poppins_semi_bold"
-            android:textSize="20sp"/>
+            android:orientation="vertical"
+            android:padding="32dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textView">
 
-        <com.dicoding.wayfind.customview.CustomName
-            android:id="@+id/et_Name"
-            android:layout_width="match_parent"
-            android:layout_height="55dp"
-            android:layout_marginTop="5dp"
-            android:drawableEnd="@drawable/user"
-            android:drawablePadding="8dp"
-            android:hint="@string/HINT_FULL_NAME"
-            android:inputType="phone"
-            android:maxLines="1"
-            android:padding="8dp"
-            android:textColor="@color/black"
-            android:textColorHint="#80837E7E"
-            android:textSize="14sp" />
+            <TextView
+                android:id="@+id/textView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/poppins_semi_bold"
+                android:text="Create \nAccount"
+                android:textSize="30sp" />
 
-        <TextView
-            android:id="@+id/textView2"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/email"
-            android:fontFamily="@font/poppins_semi_bold"
-            android:textSize="20sp"
-            android:layout_marginTop="32dp"/>
+            <TextView
+                android:id="@+id/textView1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:fontFamily="@font/poppins_semi_bold"
+                android:text="@string/full_name"
+                android:textSize="20sp" />
 
-        <com.dicoding.wayfind.customview.CustomEmail
-            android:id="@+id/et_Email"
-            android:layout_width="match_parent"
-            android:layout_height="55dp"
-            android:layout_marginTop="5dp"
-            android:drawableEnd="@drawable/email"
-            android:drawablePadding="8dp"
-            android:hint="@string/HINT_EMAIL"
-            android:inputType="phone"
-            android:maxLines="1"
-            android:padding="8dp"
-            android:textColor="@color/black"
-            android:textColorHint="#80837E7E"
-            android:textSize="14sp" />
+            <com.dicoding.wayfind.customview.CustomName
+                android:id="@+id/et_Name"
+                android:layout_width="match_parent"
+                android:layout_height="55dp"
+                android:layout_marginTop="5dp"
+                android:drawableEnd="@drawable/user"
+                android:drawablePadding="8dp"
+                android:hint="@string/HINT_FULL_NAME"
+                android:inputType="phone"
+                android:maxLines="1"
+                android:padding="8dp"
+                android:textColor="@color/black"
+                android:textColorHint="#80837E7E"
+                android:textSize="14sp" />
 
-        <TextView
-            android:id="@+id/textView3"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/password"
-            android:fontFamily="@font/poppins_semi_bold"
-            android:textSize="20sp"
-            android:layout_marginTop="32dp"/>
+            <TextView
+                android:id="@+id/textView2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="32dp"
+                android:fontFamily="@font/poppins_semi_bold"
+                android:text="@string/email"
+                android:textSize="20sp" />
 
-        <com.dicoding.wayfind.customview.CustomPassword
-            android:id="@+id/et_Pass"
-            android:layout_width="match_parent"
-            android:layout_height="55dp"
-            android:layout_marginTop="5dp"
-            android:drawablePadding="8dp"
-            android:hint="@string/HINT_PASSWORD"
-            android:drawableEnd="@drawable/lock"
-            android:inputType="textPassword"
-            android:maxLines="1"
-            android:padding="8dp"
-            android:textColor="@color/black"
-            android:textColorHint="#80837E7E"
-            android:textSize="14sp" />
+            <com.dicoding.wayfind.customview.CustomEmail
+                android:id="@+id/et_Email"
+                android:layout_width="match_parent"
+                android:layout_height="55dp"
+                android:layout_marginTop="5dp"
+                android:drawableEnd="@drawable/email"
+                android:drawablePadding="8dp"
+                android:hint="@string/HINT_EMAIL"
+                android:inputType="phone"
+                android:maxLines="1"
+                android:padding="8dp"
+                android:textColor="@color/black"
+                android:textColorHint="#80837E7E"
+                android:textSize="14sp" />
 
-        <TextView
-            android:id="@+id/textView4"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/age"
-            android:fontFamily="@font/poppins_semi_bold"
-            android:textSize="20sp"
-            android:layout_marginTop="32dp"/>
+            <TextView
+                android:id="@+id/textView3"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="32dp"
+                android:fontFamily="@font/poppins_semi_bold"
+                android:text="@string/password"
+                android:textSize="20sp" />
 
-        <EditText
-            android:id="@+id/et_Age"
-            android:layout_width="match_parent"
-            android:layout_height="55dp"
-            android:layout_marginTop="5dp"
-            android:drawablePadding="8dp"
-            android:hint="@string/HINT_AGE"
-            android:drawableEnd="@drawable/age"
-            android:inputType="number"
-            android:maxLines="1"
-            android:padding="8dp"
-            android:textColor="@color/black"
-            android:textColorHint="#80837E7E"
-            android:textSize="14sp" />
+            <com.dicoding.wayfind.customview.CustomPassword
+                android:id="@+id/et_Pass"
+                android:layout_width="match_parent"
+                android:layout_height="55dp"
+                android:layout_marginTop="5dp"
+                android:drawableEnd="@drawable/lock"
+                android:drawablePadding="8dp"
+                android:hint="@string/HINT_PASSWORD"
+                android:inputType="textPassword"
+                android:maxLines="1"
+                android:padding="8dp"
+                android:textColor="@color/black"
+                android:textColorHint="#80837E7E"
+                android:textSize="14sp" />
 
-        <TextView
-            android:id="@+id/textView5"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="32dp"
-            android:fontFamily="@font/poppins_semi_bold"
-            android:text="@string/gender"
-            android:textSize="20sp" />
+            <TextView
+                android:id="@+id/textView4"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="32dp"
+                android:fontFamily="@font/poppins_semi_bold"
+                android:text="@string/age"
+                android:textSize="20sp" />
 
-        <EditText
-            android:id="@+id/et_Gender"
-            android:layout_width="match_parent"
-            android:layout_height="55dp"
-            android:layout_marginTop="5dp"
-            android:drawablePadding="8dp"
-            android:hint="@string/HINT_Gender"
-            android:inputType="text"
-            android:drawableEnd="@drawable/gender"
-            android:maxLines="1"
-            android:padding="8dp"
-            android:textColor="@color/black"
-            android:textColorHint="#80837E7E"
-            android:textSize="14sp" />
+            <EditText
+                android:id="@+id/et_Age"
+                android:layout_width="match_parent"
+                android:layout_height="55dp"
+                android:layout_marginTop="5dp"
+                android:drawableEnd="@drawable/age"
+                android:drawablePadding="8dp"
+                android:hint="@string/HINT_AGE"
+                android:inputType="number"
+                android:maxLines="1"
+                android:padding="8dp"
+                android:textColor="@color/black"
+                android:textColorHint="#80837E7E"
+                android:textSize="14sp" />
 
-        <androidx.appcompat.widget.AppCompatButton
-            android:id="@+id/btn_register"
-            android:layout_width="match_parent"
-            android:layout_height="50dp"
-            android:layout_marginTop="25dp"
-            android:text="@string/register"
-            android:textAllCaps="false"
-            android:fontFamily="@font/poppins_semi_bold"
-            android:background="@drawable/button_background"
-            android:textColor="@color/white"
-            style="@android:style/Widget.Button"
-            android:textSize="25sp"/>
-    </LinearLayout>
+            <TextView
+                android:id="@+id/textView5"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="32dp"
+                android:fontFamily="@font/poppins_semi_bold"
+                android:text="@string/gender"
+                android:textSize="20sp" />
 
+            <RadioGroup
+                android:id="@+id/rg_Gender"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="2dp"
+                android:padding="8dp">
 
+                <RadioButton
+                    android:id="@+id/rb_Male"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/male"
+                    android:textColor="@color/black"
+                    android:textSize="14sp" />
+
+                <RadioButton
+                    android:id="@+id/rb_Female"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/female"
+                    android:textColor="@color/black"
+                    android:textSize="14sp" />
+            </RadioGroup>
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/btn_register"
+                style="@android:style/Widget.Button"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:background="@drawable/button_background"
+                android:fontFamily="@font/poppins_semi_bold"
+                android:text="@string/register"
+                android:textAllCaps="false"
+                android:textColor="@color/white"
+                android:textSize="25sp" />
+        </LinearLayout>
+    </ScrollView>
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -8,132 +8,136 @@
     tools:context=".view.login.LoginActivity"
     android:backgroundTint="@color/white">
 
-    <TextView
-        android:id="@+id/textView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="32dp"
-        android:layout_marginTop="32dp"
-        android:fontFamily="@font/poppins_semi_bold"
-        android:text="Hi, \nPlease Login"
-        android:textSize="30sp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <LinearLayout
-        android:id="@+id/linearLayout"
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView"
-        android:padding="32dp">
+        android:layout_height="match_parent"
+        android:fillViewport="true">
 
-
-        <TextView
-            android:id="@+id/textView2"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/email"
-            android:fontFamily="@font/poppins_semi_bold"
-            android:textSize="20sp"/>
-
-        <com.dicoding.wayfind.customview.CustomEmail
-            android:id="@+id/et_Email"
-            android:layout_width="match_parent"
-            android:layout_height="55dp"
-            android:layout_marginTop="5dp"
-            android:drawableEnd="@drawable/email"
-            android:drawablePadding="8dp"
-            android:hint="@string/HINT_EMAIL"
-            android:inputType="phone"
-            android:maxLines="1"
-            android:padding="8dp"
-            android:textColor="@color/black"
-            android:textColorHint="#80837E7E"
-            android:textSize="14sp" />
-
-        <TextView
-            android:id="@+id/textView3"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/password"
-            android:fontFamily="@font/poppins_semi_bold"
-            android:textSize="20sp"
-            android:layout_marginTop="32dp"/>
-
-        <com.dicoding.wayfind.customview.CustomPassword
-            android:id="@+id/et_Pass"
-            android:layout_width="match_parent"
-            android:layout_height="55dp"
-            android:layout_marginTop="5dp"
-            android:drawablePadding="8dp"
-            android:hint="@string/HINT_PASSWORD"
-            android:drawableEnd="@drawable/lock"
-            android:inputType="textPassword"
-            android:maxLines="1"
-            android:padding="8dp"
-            android:textColor="@color/black"
-            android:textColorHint="#80837E7E"
-            android:textSize="14sp" />
-
-        <androidx.appcompat.widget.AppCompatButton
-            android:id="@+id/btnLogin"
-            android:layout_width="match_parent"
-            android:layout_height="50dp"
-            android:layout_marginTop="50dp"
-            android:text="@string/LOGIN_TEXT"
-            android:textAllCaps="false"
-            android:fontFamily="@font/poppins_semi_bold"
-            android:background="@drawable/button_background"
-            android:textColor="@color/white"
-            style="@android:style/Widget.Button"
-            android:textSize="25sp"/>
-        
         <LinearLayout
+            android:id="@+id/linearLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:layout_marginTop="30dp">
-
-            <View
-                android:layout_width="wrap_content"
-                android:layout_height="1dp"
-                android:layout_weight="1"
-                android:layout_gravity="center_vertical"
-                android:background="#707070"/>
+            android:orientation="vertical"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textView"
+            android:padding="32dp">
 
             <TextView
+                android:id="@+id/textView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/poppins_semi_bold"
-                android:layout_marginStart="16dp"
-                android:layout_marginEnd="16dp"
-                android:text="@string/signup_account"/>
+                android:text="Hi, \nPlease Login"
+                android:textSize="30sp" />
 
-            <View
-                android:layout_width="wrap_content"
-                android:layout_height="1dp"
-                android:layout_weight="1"
-                android:layout_gravity="center_vertical"
-                android:background="#707070"/>
+
+            <TextView
+                android:id="@+id/textView2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/email"
+                android:fontFamily="@font/poppins_semi_bold"
+                android:textSize="20sp"
+                android:layout_marginTop="100dp"/>
+
+            <com.dicoding.wayfind.customview.CustomEmail
+                android:id="@+id/et_Email"
+                android:layout_width="match_parent"
+                android:layout_height="55dp"
+                android:layout_marginTop="5dp"
+                android:drawableEnd="@drawable/email"
+                android:drawablePadding="8dp"
+                android:hint="@string/HINT_EMAIL"
+                android:inputType="phone"
+                android:maxLines="1"
+                android:padding="8dp"
+                android:textColor="@color/black"
+                android:textColorHint="#80837E7E"
+                android:textSize="14sp" />
+
+            <TextView
+                android:id="@+id/textView3"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/password"
+                android:fontFamily="@font/poppins_semi_bold"
+                android:textSize="20sp"
+                android:layout_marginTop="32dp"/>
+
+            <com.dicoding.wayfind.customview.CustomPassword
+                android:id="@+id/et_Pass"
+                android:layout_width="match_parent"
+                android:layout_height="55dp"
+                android:layout_marginTop="5dp"
+                android:drawablePadding="8dp"
+                android:hint="@string/HINT_PASSWORD"
+                android:drawableEnd="@drawable/lock"
+                android:inputType="textPassword"
+                android:maxLines="1"
+                android:padding="8dp"
+                android:textColor="@color/black"
+                android:textColorHint="#80837E7E"
+                android:textSize="14sp" />
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/btnLogin"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_marginTop="50dp"
+                android:text="@string/LOGIN_TEXT"
+                android:textAllCaps="false"
+                android:fontFamily="@font/poppins_semi_bold"
+                android:background="@drawable/button_background"
+                android:textColor="@color/white"
+                style="@android:style/Widget.Button"
+                android:textSize="25sp"/>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginTop="30dp">
+
+                <View
+                    android:layout_width="wrap_content"
+                    android:layout_height="1dp"
+                    android:layout_weight="1"
+                    android:layout_gravity="center_vertical"
+                    android:background="#707070"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/poppins_semi_bold"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginEnd="16dp"
+                    android:text="@string/signup_account"/>
+
+                <View
+                    android:layout_width="wrap_content"
+                    android:layout_height="1dp"
+                    android:layout_weight="1"
+                    android:layout_gravity="center_vertical"
+                    android:background="#707070"/>
+            </LinearLayout>
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/btnSignUp"
+                android:layout_width="150dp"
+                android:layout_height="50dp"
+                android:layout_marginTop="50dp"
+                android:text="@string/signup"
+                android:textAllCaps="false"
+                android:fontFamily="@font/poppins_semi_bold"
+                android:background="@drawable/button_background"
+                android:textColor="@color/white"
+                style="@android:style/Widget.Button"
+                android:textSize="18sp"
+                android:layout_marginStart="95dp"
+                android:layout_marginEnd="95dp"/>
         </LinearLayout>
 
-        <androidx.appcompat.widget.AppCompatButton
-            android:id="@+id/btnSignUp"
-            android:layout_width="150dp"
-            android:layout_height="50dp"
-            android:layout_marginTop="50dp"
-            android:text="@string/signup"
-            android:textAllCaps="false"
-            android:fontFamily="@font/poppins_semi_bold"
-            android:background="@drawable/button_background"
-            android:textColor="@color/white"
-            style="@android:style/Widget.Button"
-            android:textSize="18sp"
-            android:layout_marginStart="95dp"
-            android:layout_marginEnd="95dp"/>
-    </LinearLayout>
+    </ScrollView>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

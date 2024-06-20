@@ -41,7 +41,7 @@
             android:background="@drawable/dark_mode_off"
             android:gravity="center"
             android:layout_marginTop="10dp"
-            android:layout_marginStart="100dp"/>
+            android:layout_marginStart="75dp"/>
     </LinearLayout>
 
 
@@ -67,9 +67,11 @@
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
         app:layout_constraintBottom_toTopOf="@+id/bottom_bar"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tv_places"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.942"
         tools:listitem="@layout/item_places" />
 
     <nl.joery.animatedbottombar.AnimatedBottomBar

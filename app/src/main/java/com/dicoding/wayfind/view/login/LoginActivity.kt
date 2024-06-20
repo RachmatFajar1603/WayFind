@@ -55,6 +55,7 @@ class LoginActivity : AppCompatActivity() {
 
         binding.btnSignUp.setOnClickListener {
             startActivity(Intent(this, RegisterActivity::class.java))
+            overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left)
         }
 
         setupView()

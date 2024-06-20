@@ -25,16 +25,17 @@
 
             <ImageButton
                 android:id="@+id/back_button_profile"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:background="@drawable/back_button"/>
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:background="@drawable/back_button"
+                android:layout_marginTop="5dp"/>
 
             <ImageButton
                 android:id="@+id/logout_button"
-                android:layout_width="40dp"
-                android:layout_height="40dp"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
                 android:background="@drawable/logout"
-                android:layout_marginStart="260dp"
+                android:layout_marginStart="290dp"
                 android:layout_marginTop="7dp"/>
         </LinearLayout>
 
@@ -60,7 +61,7 @@
                 android:id="@+id/profile_image"
                 android:layout_width="100dp"
                 android:layout_height="100dp"
-                android:src="@drawable/profile_picture"
+                android:src="@drawable/logo"
                 app:civ_border_width="1dp" />
         </FrameLayout>
 
@@ -86,13 +87,14 @@
 
                 <TextView
                     android:id="@+id/tv_name_value"
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/poppins_semi_bold"
                     android:text="@string/your_name"
                     android:textSize="18sp"
                     android:layout_marginTop="20dp"
-                    android:layout_marginStart="150dp"/>
+                    android:layout_marginStart="150dp"
+                    android:gravity="end"/>
             </LinearLayout>
 
             <View
@@ -126,13 +128,14 @@
 
                 <TextView
                     android:id="@+id/tv_name_email"
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/poppins_semi_bold"
                     android:text="@string/email_value"
                     android:textSize="18sp"
                     android:layout_marginTop="20dp"
-                    android:layout_marginStart="80dp"/>
+                    android:layout_marginStart="80dp"
+                    android:gravity="end"/>
             </LinearLayout>
 
             <View
@@ -166,13 +169,14 @@
 
                 <TextView
                     android:id="@+id/tv_name_age"
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/poppins_semi_bold"
-                    android:text="@string/date_of_birth_value"
+                    android:text="@string/age_value"
                     android:textSize="18sp"
                     android:layout_marginTop="20dp"
-                    android:layout_marginStart="235dp"/>
+                    android:layout_marginStart="290dp"
+                    android:gravity="end"/>
             </LinearLayout>
 
             <View
@@ -206,13 +210,14 @@
 
                 <TextView
                     android:id="@+id/tv_gender_value"
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/poppins_semi_bold"
-                    android:text="@string/gender_value"
+                    android:text="@string/male"
                     android:textSize="18sp"
                     android:layout_marginTop="20dp"
-                    android:layout_marginStart="140dp"/>
+                    android:layout_marginStart="235dp"
+                    android:gravity="end"/>
             </LinearLayout>
 
             <View
@@ -237,7 +242,7 @@
         app:abb_indicatorAppearance="round"
         app:abb_indicatorHeight="4dp"
         app:abb_indicatorMargin="16dp"
-        app:abb_selectedIndex="3"
+        app:abb_selectedIndex="2"
         app:abb_selectedTabType="text"
         app:abb_tabs="@menu/tabs"
         app:layout_constraintBottom_toBottomOf="parent"
