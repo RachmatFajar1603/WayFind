@@ -7,6 +7,7 @@ import android.util.Log
 import android.view.View
 import android.view.WindowInsets
 import android.view.WindowManager
+import android.widget.RadioButton
 import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.activity.viewModels
@@ -41,7 +42,9 @@ class RegisterActivity : AppCompatActivity() {
                 val email = binding.etEmail.text.toString()
                 val pass = binding.etPass.text.toString()
                 val age = binding.etAge.text.toString().toInt()
-                val gender = binding.etGender.text.toString()
+                val genderButtonId = binding.rgGender.checkedRadioButtonId
+                val genderButton = findViewById<RadioButton>(genderButtonId)
+                val gender = genderButton.text.toString()
 
                 if (name.isEmpty()) {
                     binding.etName.error = getString(R.string.input_name)
@@ -67,6 +70,7 @@ class RegisterActivity : AppCompatActivity() {
 
             val intent = Intent(this, LoginActivity::class.java)
             startActivity(intent)
+            overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left)
             finish()
         } else {
             when (message) {
@@ -97,7 +101,9 @@ class RegisterActivity : AppCompatActivity() {
         val fullName = binding.etName.text.toString()
         val email = binding.etEmail.text.toString()
         val age = binding.etAge.text.toString().toInt()
-        val gender = binding.etGender.text.toString()
+        val genderButtonId = binding.rgGender.checkedRadioButtonId
+        val genderButton = findViewById<RadioButton>(genderButtonId)
+        val gender = genderButton.text.toString()
 
         appPreferences.fullName = fullName
         appPreferences.email = email
@@ -111,7 +117,9 @@ class RegisterActivity : AppCompatActivity() {
         val fullName = binding.etName.text.toString()
         val email = binding.etEmail.text.toString()
         val age = binding.etAge.text.toString()
-        val gender = binding.etGender.text.toString()
+        val genderButtonId = binding.rgGender.checkedRadioButtonId
+        val genderButton = findViewById<RadioButton>(genderButtonId)
+        val gender = genderButton.text.toString()
 
         // Update your UI with the user's data
         // For example, if you have TextViews to display the user's data, you can do:

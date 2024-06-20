@@ -81,10 +81,6 @@ class HomeActivity : AppCompatActivity() {
                     val intent = Intent(this@HomeActivity, HomeActivity::class.java)
                     startActivity(intent)
                     overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left)
-                } else if (newTab.id == R.id.tab_favorite) {
-                    val intent = Intent(this@HomeActivity, FavoriteActivity::class.java)
-                    startActivity(intent)
-                    overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left)
                 }
             }
 
