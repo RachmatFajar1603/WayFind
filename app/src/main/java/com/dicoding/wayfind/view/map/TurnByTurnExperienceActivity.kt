@@ -389,10 +389,12 @@ class TurnByTurnExperienceActivity : AppCompatActivity() {
      * Gets notified with progress along the currently active route.
      */
     private var distanceRemaining: Float = 0f
+    private var distanceRemainingKm: Float = 0f
     private var timeRemaining: Double = 0.0
 
     private val routeProgressObserver = RouteProgressObserver { routeProgress ->
         distanceRemaining = routeProgress.distanceRemaining
+        distanceRemainingKm = routeProgress.distanceRemaining / 1000
         timeRemaining = routeProgress.durationRemaining
 
 
@@ -1224,7 +1226,7 @@ class TurnByTurnExperienceActivity : AppCompatActivity() {
                         dialog.dismiss()
                     }
                     .show()
-            }, 1500)
+            }, 750)
 
             CoroutineScope(Dispatchers.Main).launch {
                 // Get user data from SharedPreferences
@@ -1250,7 +1252,7 @@ class TurnByTurnExperienceActivity : AppCompatActivity() {
                     gender = gender ?: "",
                     pickupLocation = position,
                     destination = name ?: "",
-                    distance = distanceRemaining.toDouble()
+                    distance = distanceRemainingKm.toDouble()
                 )
 
                 // Initialize ApiService
