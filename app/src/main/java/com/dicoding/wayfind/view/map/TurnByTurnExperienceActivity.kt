@@ -891,6 +891,8 @@ class TurnByTurnExperienceActivity : AppCompatActivity() {
             findRoute(destination)  // Assuming findRoute is a method that starts navigation to the given Point
             intent.putExtra("name", name)
 
+            intent.putExtra("name", name)
+
             true // Indicate that the click event was consumed
         }
 
@@ -1222,7 +1224,7 @@ class TurnByTurnExperienceActivity : AppCompatActivity() {
                         dialog.dismiss()
                     }
                     .show()
-            }, 3000)
+            }, 1500)
 
             CoroutineScope(Dispatchers.Main).launch {
                 // Get user data from SharedPreferences
