@@ -98,33 +98,22 @@ class ProfileActivity : AppCompatActivity() {
     }
 
     private fun fetchUserData() {
-        CoroutineScope(Dispatchers.IO).launch {
-            try {
-                val apiService = ApiConfig.getApiService()
-                val token = "Bearer " + AppPreferences(this@ProfileActivity).authToken
-                val user = apiService.getUser(token)
+        // Get user data from SharedPreferences
+        val sharedPref = getSharedPreferences("user_data", Context.MODE_PRIVATE)
+        val age = sharedPref.getInt("age", 0)
+        val gender = sharedPref.getString("gender", "")
+        val name = sharedPref.getString("name", "")
+        val email = sharedPref.getString("email", "")
 
-                withContext(Dispatchers.Main) {
-                    val tvFullName = findViewById<TextView>(R.id.tv_name_value)
-                    val tvEmail = findViewById<TextView>(R.id.tv_name_email)
-                    val tvAge = findViewById<TextView>(R.id.tv_name_age)
-                    val tvGender = findViewById<TextView>(R.id.tv_gender_value)
+        // Update UI with user data
+        val tvFullName = findViewById<TextView>(R.id.tv_name_value)
+        val tvEmail = findViewById<TextView>(R.id.tv_name_email)
+        val tvAge = findViewById<TextView>(R.id.tv_name_age)
+        val tvGender = findViewById<TextView>(R.id.tv_gender_value)
 
-                    tvFullName.text = user.name
-                    tvEmail.text = user.email
-                    tvAge.text = user.age.toString()
-                    tvGender.text = user.gender
-
-                    val sharedPref = getSharedPreferences("user_data", Context.MODE_PRIVATE)
-                    with (sharedPref.edit()) {
-                        putInt("age", user.age)
-                        putString("gender", user.gender)
-                        apply()
-                    }
-                }
-            } catch (e: Exception) {
-                // Handle the exception
-            }
-        }
+        tvFullName.text = name
+        tvEmail.text = email
+        tvAge.text = age.toString()
+        tvGender.text = gender
     }
 }

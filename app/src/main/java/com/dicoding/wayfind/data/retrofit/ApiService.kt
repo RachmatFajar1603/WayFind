@@ -34,9 +34,11 @@ interface ApiService {
     )
 
     data class PostDataRequest(
-        val position: String,
-        val route: String,
-        val distance: String
+        val age: Int,
+        val gender: String,
+        val pickupLocation: String,
+        val destination: String,
+        val distance: Double,
     )
 
     data class User (
@@ -61,7 +63,7 @@ interface ApiService {
         @Body request: LogoutRequest
     ): Call<LoginResponse>
 
-    @POST("")
+    @POST("api/model/predict")
     fun postData(
         @Body request: PostDataRequest
     ): Call<ResponseBody>
