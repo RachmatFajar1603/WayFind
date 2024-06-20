@@ -11,19 +11,37 @@ import retrofit2.http.POST
 interface ApiService {
     data class LoginRequest(
         val email: String,
-        val password: String
+        val password: String,
+        val token: String
     )
 
-    @POST("register")
-    @FormUrlEncoded
+    data class RegisterRequest(
+        val name: String,
+        val email: String,
+        val password: String,
+        val age: Int,
+        val gender: String,
+        val message: String
+    )
+
+    data class LogoutRequest(
+        val email: String,
+        val password: String,
+        val token: String
+    )
+
+    @POST("api/auth/register")
     fun register(
-        @Field("name") name: String,
-        @Field("email") email: String,
-        @Field("password") password: String
+        @Body request: RegisterRequest
     ): Call<RegisterResponse>
 
     @POST("api/auth/login")
     fun login(
         @Body request: LoginRequest
+    ): Call<LoginResponse>
+
+    @POST("api/auth/logout")
+    fun logout(
+        @Body request: LogoutRequest
     ): Call<LoginResponse>
 }

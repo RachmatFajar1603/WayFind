@@ -27,6 +27,7 @@ dependencyResolutionManagement {
         }
 
     }
+
 }
 
 rootProject.name = "WayFind"
