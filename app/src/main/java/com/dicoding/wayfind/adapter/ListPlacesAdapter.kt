@@ -45,6 +45,7 @@ class ListPlacesAdapter(private val listPlaces: ArrayList<Places>) : RecyclerVie
         holder.btnDirection.setOnClickListener {
             val intent = Intent(holder.itemView.context, TurnByTurnExperienceActivity::class.java)
             intent.putExtra("coordinate", coordinate)
+            intent.putExtra("name", name)
             it.context.startActivity(intent)
         }
     }
